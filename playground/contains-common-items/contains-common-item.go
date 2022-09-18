@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// given two arrays, create a function that lets a user know (true/false) whether these two arrays contain any common items
 func main() {
 	a := []string{"a", "b", "c", "x", "i"}
 	b := []string{"z", "y", "i"}

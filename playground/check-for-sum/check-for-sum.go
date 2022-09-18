@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+// given an array and an integer, check if the array has a pair of numbers that sum up to the integer
+
 func main() {
 	arr1 := []int{1, 2, 3, 9}
 	arr2 := []int{1, 2, 4, 4}
