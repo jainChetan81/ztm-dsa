@@ -28,17 +28,24 @@
 // Only one valid answer exists.
 package main
 
+import "fmt"
+
 func main() {
-	arr1 := []int{2, 7, 11, 15}
-	twoSum(arr1, 9)
+	arr1 := []int{3, 4, 6, 15}
+	fmt.Println(twoSum(arr1, 9))
 }
 func twoSum(nums []int, target int) []int {
-	map1 := make(map[int]bool)
-	for _, v := range nums {
-		if map1[target-v] {
-			return []int{v, target - v}
+	map1 := make(map[int]int)
+	for i, v := range nums {
+		// Since we are storing the number nd their index in the map respectively,
+		// this line checks if the difference of the target and the current number is present in the map
+		// j represents the the index of the number(number being target - currentNumber) that is present in the map
+		// ok(boolean) means that the value is present and proves that the difference of the target and the current number is present in the map
+		if j, ok := map1[target-v]; ok {
+			return []int{j, i}
 		}
+		map1[v] = i
 
 	}
-	return []int{1, 2}
+	return []int{0, 0}
 }
