@@ -19,5 +19,22 @@
 package main
 
 func main() {
+	arr1 := []int{-2, 1, -3, 4, -1, 2, 1, -5, 4}
+	// brute force
+	println(maxSubArrayBruteForce(arr1))
+}
 
+func maxSubArrayBruteForce(nums []int) int {
+	max := nums[0]
+	for i := 0; i < len(nums); i++ {
+		sum := 0
+		for j := i; j < len(nums); j++ {
+			sum += nums[j]
+			if sum > max {
+				max = sum
+			}
+
+		}
+	}
+	return max
 }
