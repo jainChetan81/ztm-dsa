@@ -30,13 +30,17 @@
 
 package main
 
+import "fmt"
+
 func main() {
 	arr1 := []int{1, 2, 3, 4, 5, 6, 7}
 	k1 := 3
-	arr2 := []int{1, 100, 3, 99}
+	arr2 := []int{-1, -100, 3, 99}
 	k2 := 2
-	rotateArrayBruteForce(arr1, k1)
-	rotateArrayBruteForce(arr2, k2)
+	// rotateArrayBruteForce(arr1, k1)
+	// rotateArrayBruteForce(arr2, k2)
+	fmt.Println([]int{5, 6, 7, 1, 2, 3, 4}, rotateArray(arr1, k1))
+	fmt.Println([]int{3, 99, -1, -100}, rotateArray(arr2, k2))
 }
 
 func rotateArrayBruteForce(nums []int, k int) []int {
@@ -47,4 +51,16 @@ func rotateArrayBruteForce(nums []int, k int) []int {
 	}
 	return nums
 
+}
+
+func rotateArray(nums []int, k int) []int {
+	realNums := make([]int, len(nums))
+	for i := 0; i < len(nums); i++ {
+		j := i + k
+		if j > len(nums)-1 {
+			j = j - len(nums)
+		}
+		realNums[j] = nums[i]
+	}
+	return realNums
 }
