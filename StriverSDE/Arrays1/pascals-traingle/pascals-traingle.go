@@ -21,12 +21,16 @@ func main() {
 func pascalTriangle(num int) [][]int {
 	triangle := make([][]int, num)
 	triangle[0] = []int{1}
-	// temp := 1
 	for i := 1; i < num; i++ {
 		triangle[i] = make([]int, i+1)
 		for j := 0; j <= i; j++ {
 			fmt.Println(i, j)
-			triangle[i][j] = 1
+			if j == 0 || j == i {
+				triangle[i][j] = 1
+			} else {
+				triangle[i][j] = triangle[i-1][j-1] + triangle[i-1][j]
+			}
+
 		}
 
 	}
