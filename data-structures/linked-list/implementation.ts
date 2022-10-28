@@ -1,15 +1,3 @@
-let myLinkedList = {
-	head: {
-		value: 10,
-		next: {
-			value: 5,
-			next: {
-				value: 16,
-				next: null,
-			},
-		},
-	},
-};
 type LL = {
 	value: number;
 	next: LL | null;
@@ -90,7 +78,7 @@ class LinkedList {
 				if (temp.next === null) {
 					this.tail = temp;
 				}
-				temp.next = temp.next?.next;
+				temp.next = temp.next?.next ? temp.next.next : temp.next;
 				this.length--;
 			}
 			temp = temp.next === null ? temp : temp.next;
@@ -107,5 +95,3 @@ linkedList.insert(2, 99);
 console.log(linkedList.printList());
 linkedList.remove(3);
 console.log(linkedList.printList());
-
-console.log(linkedList);
