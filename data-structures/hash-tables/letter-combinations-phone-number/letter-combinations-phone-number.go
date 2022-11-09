@@ -47,5 +47,12 @@ func letterCombinations(digits string) []string {
 
 }
 
-func combine(result []string, s []string) {
+func combine(result []string, s []string) []string {
+	temp := make([]string, 0)
+	for i := 0; i < len(result); i++ {
+		for j := 0; j < len(s); j++ {
+			temp = append(temp, result[i]+s[j])
+		}
+	}
+	return temp
 }
