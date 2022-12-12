@@ -1,26 +1,30 @@
-type LL = {
+type DLL = {
 	value: number;
-	next: LL | null;
+	next: DLL | null;
+	prev: DLL | null;
 };
 
-class LinkedList {
-	private head: LL | null = null;
-	private tail: LL | null = null;
+class DoublyLinkedList {
+	private head: DLL | null = null;
+	private tail: DLL | null = null;
 	private length: number = 0;
 	constructor(value: number) {
 		this.head = {
 			value: value,
 			next: null,
-		};
+			prev: null,
+		} as DLL;
 		this.tail = this.head;
 		this.length = 1;
 	}
 	append(value: number) {
 		if (this.head === null || this.tail === null) return;
-		const newNode = {
+		const newNode: DLL = {
 			value: value,
 			next: null,
+			prev: null,
 		};
+		newNode.prev = this.tail;
 		this.tail.next = newNode;
 		this.tail = newNode;
 		this.length++;
@@ -28,10 +32,12 @@ class LinkedList {
 	}
 	prepend(value: number) {
 		if (this.head === null || this.tail === null) return;
-		const newNode = {
+		const newNode: DLL = {
 			value,
 			next: this.head,
+			prev: null,
 		};
+		this.head.prev = newNode;
 		this.head = newNode;
 		this.length++;
 		return this;
@@ -52,10 +58,13 @@ class LinkedList {
 		let temp = this.head;
 		for (let i = 0; i < this.length; i++) {
 			if (index - 1 === i) {
-				const newNode = {
+				const newNode: DLL = {
 					value,
-					next: temp.next,
+					next: null,
+					prev: null,
 				};
+				newNode.next = temp.next;
+				newNode.prev = temp;
 				temp.next = newNode;
 				this.length++;
 			}
@@ -68,6 +77,7 @@ class LinkedList {
 		if (index < 0 || index >= this.length || this.length === 0) return this;
 		if (index === 0) {
 			this.head = this.head.next;
+			this.head!.prev = null;
 			this.length--;
 			return this;
 		}
@@ -88,10 +98,11 @@ class LinkedList {
 	}
 }
 
-const linkedList = new LinkedList(10);
-linkedList.append(5);
-linkedList.prepend(16);
-linkedList.insert(2, 99);
-console.log(linkedList.printList());
-linkedList.remove(3);
-console.log(linkedList.printList());
+const doublyLinkedList = new DoublyLinkedList(10);
+doublyLinkedList.append(5);
+doublyLinkedList.append(15);
+doublyLinkedList.prepend(16);
+doublyLinkedList.insert(2, 99);
+console.log(doublyLinkedList.printList());
+// doublyLinkedList.remove(3);
+// console.log(doublyLinkedList.printList());
