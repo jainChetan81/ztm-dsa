@@ -20,6 +20,23 @@ func main() {
 }
 
 func longestConsecutive(nums []int) int {
-	count := 0
-	return count
+	maxCount := 0
+	map1 := make(map[int]int)
+	for _, num := range nums {
+		map1[num]++
+	}
+	for _, num := range nums {
+		prev := num - 1
+		if _, ok := map1[prev]; !ok {
+			count := 1
+			for map1[num+1] > 0 {
+				count++
+				num++
+			}
+			if count > maxCount {
+				maxCount = count
+			}
+		}
+	}
+	return maxCount
 }
