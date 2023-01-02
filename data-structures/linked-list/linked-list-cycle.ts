@@ -17,7 +17,7 @@
 //     The number of the nodes in the list is in the range [0, 104].
 //     -105 <= Node.val <= 105
 //     pos is -1 or a valid index in the linked-list.
-// @ts-expect-error dds
+// @ts-ignore
 class ListNode {
 	val: number;
 	next: ListNode | null;
@@ -26,7 +26,16 @@ class ListNode {
 		this.next = next === undefined ? null : next;
 	}
 }
-function hasCycle(head: ListNode | null): boolean {}
+function hasCycle(head: ListNode | null): boolean {
+	const values = new Set<number>();
+	let current = head;
+	while (current) {
+		if (values.has(current.val)) return true;
+		values.add(current.val);
+		current = current.next;
+	}
+	return false;
+}
 
 // example 1
 console.log(hasCycle(new ListNode(3, new ListNode(2, new ListNode(0, new ListNode(-4))))));
