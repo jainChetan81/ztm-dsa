@@ -23,30 +23,40 @@ class ListNode {
 }
 function removeElements(head: ListNode | null, val: number): ListNode | null {
 	if (!head) return null;
-	let current: ListNode | null = head;
-	const map = new Set<number>();
-	let arr: any = [];
-	map.add(current.val);
-	while (current && current.next !== null) {
-		if (map.has(current.next.val)) {
-			console.log(current);
-			current = current.next.next;
+	let tempHead: ListNode | null = head,
+		prev: ListNode | null = null;
+	while (tempHead) {
+		if (tempHead.val === val) {
+			// for 0th index
+			if (!prev) {
+				// @ts-ignore
+				head = head.next;
+				tempHead = tempHead.next;
+				continue;
+			}
+			prev.next = tempHead.next;
+			tempHead = tempHead.next;
 			continue;
 		}
-		console.log(current.val, current.next.val, map.has(current.next.val));
-		map.add(current.next.val);
-		current = current.next;
+		prev = tempHead;
+		tempHead = tempHead.next;
 	}
+
 	return head;
 }
 
 // example 1
-console.log(
-	removeElements(
+const r1 = removeElements(
+	new ListNode(
+		1,
 		new ListNode(
-			1,
-			new ListNode(2, new ListNode(6, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6))))))
-		),
-		6
-	)
+			2,
+			new ListNode(
+				6,
+				new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6, new ListNode(8, new ListNode(9))))))
+			)
+		)
+	),
+	6
 );
+console.log(r1);
