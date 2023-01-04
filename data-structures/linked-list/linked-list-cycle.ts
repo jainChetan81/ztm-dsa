@@ -27,11 +27,11 @@ class ListNode {
 	}
 }
 function hasCycle(head: ListNode | null): boolean {
-	const values = new Set<number>();
+	const values = new Set<ListNode>();
 	let current = head;
 	while (current) {
-		if (values.has(current.val)) return true;
-		values.add(current.val);
+		if (values.has(current)) return true;
+		values.add(current);
 		current = current.next;
 	}
 	return false;

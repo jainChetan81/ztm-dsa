@@ -19,8 +19,8 @@ class ListNode {
 	}
 }
 function getDecimalValue(head: ListNode | null): number {
-	let binary = "";
 	if (head === null) return 0;
+	let binary = "";
 	let currentNode: ListNode | null = head;
 	while (currentNode !== null) {
 		console.log(currentNode.val);

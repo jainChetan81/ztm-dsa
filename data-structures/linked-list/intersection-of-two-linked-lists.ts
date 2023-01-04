@@ -1,4 +1,5 @@
 // Definition for singly-linked list.
+// @ts-expect-error fdf
 class ListNode {
 	val: number;
 	next: ListNode | null;

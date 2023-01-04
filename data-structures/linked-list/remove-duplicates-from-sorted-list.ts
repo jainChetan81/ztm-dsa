@@ -9,6 +9,7 @@
 //     -100 <= Node.val <= 100
 //     The list is guaranteed to be sorted in ascending order.
 // Definition for singly-linked list.
+// @ts-expect-error ffd
 class ListNode {
 	val: number;
 	next: ListNode | null;
