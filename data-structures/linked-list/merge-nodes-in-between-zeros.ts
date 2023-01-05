@@ -31,5 +31,29 @@ class ListNode {
 	}
 }
 function mergeNodes(head: ListNode | null): ListNode | null {
-	if (!head) return null;
+	if (!head || !head.next) return null;
+	let sum = 0;
+	let current: ListNode | null = head.next;
+	let tempHead: ListNode | null = head;
+	while (current) {
+		if (current.val === 0) {
+			tempHead.val = sum;
+			tempHead.next = current;
+			if (current.next === null) tempHead.next = null;
+			tempHead = current;
+			sum = 0;
+			current = current.next;
+			continue;
+		}
+		sum += current.val;
+		current = current.next;
+	}
+	return head;
 }
+
+// example 1
+const head1 = new ListNode(
+	0,
+	new ListNode(3, new ListNode(1, new ListNode(0, new ListNode(4, new ListNode(5, new ListNode(2, new ListNode(0)))))))
+);
+console.log(mergeNodes(head1));
