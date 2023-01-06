@@ -37,13 +37,23 @@ class ListNode {
 
 function pairSum(head: ListNode | null): number {
 	if (!head) return 0;
-	return head.val;
+
+	const arr: number[] = [];
+	while (head) {
+		arr.push(head.val);
+		head = head.next;
+	}
+	let max = 0;
+	for (let i = 0; i < arr.length / 2; i++) {
+		max = Math.max(max, arr[i] + arr[arr.length - 1 - i]);
+	}
+	return max;
 }
 
 // example 1
 
 const head = new ListNode(5, new ListNode(4, new ListNode(2, new ListNode(1))));
-console.log("pairSum(head1)", pairSum(head1));
+console.log("pairSum(head1)", pairSum(head));
 
 // example 2
 const head2 = new ListNode(4, new ListNode(2, new ListNode(2, new ListNode(3))));
