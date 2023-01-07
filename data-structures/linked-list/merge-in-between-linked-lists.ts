@@ -27,24 +27,30 @@ function mergeInBetween(list1: ListNode | null, a: number, b: number, list2: Lis
 	if (!list2) return list1;
 	if (!list1 || !list2) return null;
 	let temp: ListNode | null = list1;
-	let firstNodeFound = false;
+	let index = 0;
 	while (temp.next) {
 		console.log(temp.val);
-		if (temp.next.val === a) {
+		if (index + 1 === a) {
+			// to restart list1 after list2 is over
+			let temp2 = temp.next;
 
 			while (list2) {
 				temp.next = list2;
 				temp = temp.next;
 				list2 = list2.next;
 			}
-			// somehow ending here
-			console.log(temp.val, "end");
-			continue;
 			// what we need to do is to skip the nodes between a and b
 			// that would mean storing the node after a and while loop until we find b
 			// and then assign that value to after b and then let the normal loop run
+			while (index + 1 !== b) {
+				temp2 = temp2.next!;
+				index++;
+			}
+			temp.next = temp2.next!;
+			continue;
 		}
 		temp = temp.next;
+		index++;
 	}
 	return list1;
 }
