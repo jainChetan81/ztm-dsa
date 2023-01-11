@@ -10,17 +10,47 @@
 // Example 3:
 // Input: tiles = "V"
 // Output: 1
-
+const resultList = new Set<string>();
 function numTilePossibilities(tiles: string): number {
-	const set = new Set<string>();
-	for (let i = 0; i < tiles.length; i++) {
-		const randomNumbersForIthLength = findAllRandomOccurances(tiles, i + 1);
+	console.log("tiles", tiles.split(""));
+	findAllRandomOccurances(tiles.split(""), 0, "", tiles.length);
+	return resultList.size;
+}
+// findAllRandomOccurances("AAB".split(""), 0, "");
+function findAllRandomOccurances(s: string[], pos: number, resultString: string, tilesLength: number) {
+	if (pos == tilesLength) {
+		resultList.add(resultString);
+		return;
 	}
-	return set.size;
+	for (let i = 0; i < tilesLength; ++i) {
+		if (resultString !== s[i]) {
+			findAllRandomOccurances(s, pos + 1, resultString + s[i], tilesLength);
+		}
+	}
 }
+// example 1
+// console.log(numTilePossibilities("AAB"));
+// console.log(resultList);
+// // example 2
+// console.log(numTilePossibilities("AAABBC"));
+// // example 3
+// console.log(numTilePossibilities("V"));
 
-function findAllRandomOccurances(tile: string, length: number): number {
-	// find all random possible strings of length "length" from "tile"
-	if(length===0)return 
-	return set.size;
+function findAllPossibilities(string: string) {
+	let allTotal = 0;
+	const set = new Set(string.split(""));
+	const totalDuplicate = string.length - set.size;
+	console.log("totalDuplicate", totalDuplicate);
+	for (let i = 1; i <= string.length; i++) {
+		let total = 1;
+		for (let j = 0; j < i; j++) {
+			total *= string.length - j;
+		}
+		console.log("total:", total);
+		allTotal += total;
+	}
+	console.log("allTotal", allTotal);
 }
+findAllPossibilities("AAB");
+// findAllPossibilities("AAABBC");
+// findAllPossibilities("V");
