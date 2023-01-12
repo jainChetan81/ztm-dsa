@@ -16,12 +16,29 @@
 //     1 <= nums.length <= 105
 //     1 <= nums[i] <= 106
 
-function countDistinctIntegers(nums: number[]): number {}
+function countDistinctIntegers(nums: number[]): number {
+	const set = new Set();
+	nums.forEach((num) => {
+		const reversedNum = +`${num}`.split("").reverse().join("");
+		set.add(reversedNum);
+		set.add(num);
+	});
+	return set.size;
+}
 
 // example 1
-console.log(countDistinctIntegers([1, 13, 10, 12, 31]));
+// console.log(countDistinctIntegers([1, 13, 10, 12, 31]));
 // Output: 6
 
 // example 2
-console.log(countDistinctIntegers([2, 2, 2]));
+// console.log(countDistinctIntegers([2, 2, 2]));
 // Output: 1
+
+// example 3
+console.log(
+	countDistinctIntegers([
+		89904, 846787, 965070, 396570, 847607, 625317, 851503, 143414, 954838, 837423, 988190, 916423, 771555, 680073,
+		575614, 967207, 965688,
+	])
+);
+//Output 34
