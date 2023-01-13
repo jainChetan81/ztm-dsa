@@ -25,20 +25,26 @@
 
 function minSteps(s: string, t: string): number {
 	if (!s || !t || s.length !== t.length) return 0;
-	let anagramOfT = "";
 	const mapS = new Map<string, number>();
 	const mapT = new Map<string, number>();
 	for (let i = 0; i < t.length; i++) {
-		anagramOfT += t[t.length - 1 - i];
 		const value = mapT.get(t[i]) ?? 0;
 		mapT.set(t[i], value + 1);
 		const value2 = mapS.get(s[i]) ?? 0;
 		mapS.set(s[i], value2 + 1);
 	}
-	if (anagramOfT === s) return 0;
+	if (checkForAnagrams(mapS, mapT)) return 0;
 	let result = 0;
 	return result;
 }
+
+const checkForAnagrams = (s: Map<string, number>, t: Map<string, number>): boolean => {
+	if (!s || !t || s.size !== t.size) return false;
+	for (const [key, value] of s) {
+		if (t.get(key) !== value) return false;
+	}
+	return true;
+};
 
 // example 1
 console.log(minSteps("leetcode", "coats"));
