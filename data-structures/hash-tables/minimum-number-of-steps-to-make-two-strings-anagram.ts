@@ -19,49 +19,48 @@
 //     s and t consist of lowercase English letters only.
 function minSteps(s: string, t: string): number {
 	if (!s || !t || s.length !== t.length) return 0;
-	let anagramOfT = "";
+	// change mapT so it can be an anagram of s
 	const mapS = new Map<string, number>();
 	const mapT = new Map<string, number>();
 	for (let i = 0; i < t.length; i++) {
-		anagramOfT += t[t.length - 1 - i];
 		const value = mapT.get(t[i]) ?? 0;
 		mapT.set(t[i], value + 1);
 		const value2 = mapS.get(s[i]) ?? 0;
 		mapS.set(s[i], value2 + 1);
 	}
-	if (anagramOfT === s) return 0;
+	if (checkForAnagrams(mapS, mapT)) return 0;
 	let result = 0;
-	// only mapT can be manipulated
-	mapT.forEach((value, key) => {
-		// here if the letters are a and b and we are calculating the difference in their occurrences
-		// here the number will be wither 0 or >0 or less than 0
-		// if it is 0 then we don't need to do anything
-		const marginForError = value - (mapS.get(key) ?? 0);
-		if (marginForError > 0) {
-			// that means T has freq of a char more than S
-			// which means remove the extra chars from T
-			console.log("marginForError:", marginForError, "for key:", key, "value:", value);
-			mapT.set(key, value - marginForError);
-			result += marginForError;
+	// console.log("mapT", mapT);
+	// console.log("mapS", mapS);
+	// so here we loop over mapT to replace it, now we need to check for any value and then act accordingly to it
+	// if valueT and valueS are equal, do nothing
+	// if valueT > valueS, decrease the count of valueT and add it to the result
+	mapT.forEach((valueT, keyT) => {
+		const valueS = mapS.get(keyT) ?? 0;
+		console.log(valueT, keyT, valueS);
+		const difference = valueT - valueS;
+		if (difference === 0) return;
+		if (difference > 0) {
+			result += difference;
 		}
-		if (marginForError < 0) {
-			// that means T has freq of a char less than S
-			// which means add the extra chars to T
-			console.log("marginForError:", marginForError, "for key:", key, "value:", value);
-			mapT.set(key, value - marginForError);
-		}
+		mapT.set(keyT, valueS);
 	});
-	console.log("mapT", mapT);
-	console.log("mapS", mapS);
 	return result;
 }
 
+const checkForAnagrams = (s: Map<string, number>, t: Map<string, number>): boolean => {
+	if (!s || !t || s.size !== t.size) return false;
+	for (const [key, value] of s) {
+		if (t.get(key) !== value) return false;
+	}
+	return true;
+};
 // example 1
 console.log(minSteps("bab", "aba"));
 //                    s   ,   t
 // Output: 1
 
 console.log(minSteps("leetcode", "practice"));
-// // Output 5
+// // // Output 5
 console.log(minSteps("anagram", "mangaar"));
 // Output 0
