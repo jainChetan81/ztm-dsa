@@ -22,16 +22,15 @@ class Stack {
 	}
 	push(value: number) {
 		const newNode = new ListNode(value);
+		this.length++;
 		if (this.length === 0) {
-			this.bottom = newNode;
 			this.top = newNode;
-			this.length++;
+			this.bottom = newNode;
 			return this;
 		}
 		const top = this.top;
 		this.top = newNode;
 		this.top.next = top;
-		this.length++;
 		return this;
 	}
 	pop() {
