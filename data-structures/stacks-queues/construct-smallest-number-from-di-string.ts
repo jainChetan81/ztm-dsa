@@ -22,22 +22,17 @@
 // Some possible values of num are "9876", "7321", and "8742".
 // It can be proven that "4321" is the smallest possible num that meets the conditions.
 export function smallestNumber(pattern: string): string {
-	let prev = "";
-	let latest = 0;
-	let totalD = 0;
-	for (let i = 0; i < pattern.length; i++) {
-		latest++;
-		console.log("latest", latest, "totalD", totalD, "prev", prev);
-		if (pattern[i] === "I") {
-			prev = prev + (latest - totalD);
-			totalD = 0;
+	let result = "";
+	let set = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+	for (let i = -1; i < pattern.length; i++) {
+		let countOfSucceedingD = 0;
+		for (let j = i + 1; j < pattern.length; j++) {
+			if (pattern[j] === "I") break;
+			countOfSucceedingD++;
 		}
-		if (pattern[i] === "D") {
-			totalD++;
-			prev = prev + (latest + totalD);
-		}
+		result += set.splice(countOfSucceedingD, 1);
 	}
-	return prev;
+	return result;
 }
 
 // example 1
