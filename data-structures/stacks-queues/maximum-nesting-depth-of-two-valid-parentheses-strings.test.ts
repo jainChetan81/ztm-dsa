@@ -7,6 +7,6 @@ describe("TEST: maximum-nesting-depth-of-the-parentheses", () => {
 		expect(maxDepthAfterSplit("(()())")).toEqual([0, 1, 1, 1, 1, 0]);
 	});
 	test("example 2", () => {
-		expect(maxDepthAfterSplit("()(())()")).toEqual([0, 0, 0, 1, 1, 0, 1, 1]);
+		expect(maxDepthAfterSplit("()(())()")).toEqual([0, 0, 0, 1, 1, 0, 0, 0]);
 	});
 });
