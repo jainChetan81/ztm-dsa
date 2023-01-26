@@ -26,35 +26,22 @@
 // Explanation: The string is already balanced.
 
 export function minSwaps(str: string): number {
-	let totalSwap = 0;
-	let stack: string[] = [];
+	const stack: string[] = [];
 	const s = str.split("");
 	for (let i = 0; i < s.length; i++) {
+		if (stack && s[i] === "]") stack.pop();
 		if (s[i] === "[") stack.push(s[i]);
-		if (s[i] === "]" && stack.length > 0) stack.pop();
-		if (s[i] === "]" && stack.length === 0) {
-			let reverseStack: number[] = [];
-			let secondSwapIndex = i + 1;
-			// console.log(i, ". s[i]->", s[i]);
-			for (let j = i + 1; j < s.length; j++) {
-				if (s[j] === "[") {
-					secondSwapIndex = j;
-					reverseStack.push(j);
-				}
-				if (s[j] === "]" && reverseStack.length > 0) reverseStack.pop();
-			}
-			secondSwapIndex = reverseStack[0];
-			console.log(reverseStack);
-			// console.log(i, ". s[i]->", s[i], "secondSwapIndex->", secondSwapIndex);
-			[s[i], s[secondSwapIndex]] = [s[secondSwapIndex], s[i]];
-			totalSwap++;
-		}
 	}
-	return s;
+	const result = stack.length / 2;
+	console.log("result", result);
+	return result > 0 ? (Number.isInteger(result) ? result : Math.floor(result) + 1) : 0;
 }
 // example 1
 console.log(minSwaps("][][")); // 1
 // example 2
-// console.log(minSwaps("]]][[[")); // 2
+console.log(minSwaps("]]][[[")); // 2
 // example 3
-// console.log(minSwaps("[]")); // 0
+console.log(minSwaps("[]")); // 0
+console.log(
+	minSwaps("[[][[[[][][[[[]]][][]]]]][[][[][][]][[[[]]][[]][[]][[]]]]]]]][]][]]][[]][[[[[[][[]][[[][]][[]]][")
+); // 3
