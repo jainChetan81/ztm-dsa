@@ -18,27 +18,19 @@ function validateStackSequences(pushed: number[], popped: number[]): boolean {
 	const tempPopped: number[] = [];
 	const stack: number[] = [];
 
-	let pushIdx = 0;
-	let popIdx = 0;
-	let i = 0;
+	// let pushIdx = 0;
+	// let popIdx = 0;
+	let i = 1;
 	// every push is a push in tempPushed and every pop is a push in tempPopped
-	while (pushIdx < pushed.length || popIdx < popped.length) {
-		// console.log("i", i);
-		if (i + 1 === pushed[pushIdx]) {
-			tempPushed.push(pushed[pushIdx]);
-			pushIdx++;
-			// continue;
-		}
-		console.log(i, popIdx, popped[popped.length - popIdx]);
-		if (i + 1 === popped[popped.length - popIdx]) {
-			tempPopped.push(popped[popped.length - 1 - popIdx]);
-			popIdx++;
-			i--;
-		}
-		i++;
-	}
-	console.log("tempPopped", tempPopped, popIdx);
-	console.log("tempPushed", tempPushed);
+	// if the index+1===pushed[pushIdx],then popIdx++ and push in tempPopped
+	// after pushing, i cannot increase as it could be used for pop
+for (let i = 0; i < pushed.length; i++) {
+	const element = pushed[i];
+
+}
+	console.log("i", i);
+	// console.log("tempPopped", tempPopped, popIdx);
+	// console.log("tempPushed", tempPushed);
 	if (i > 5) return false;
 
 	return true;
