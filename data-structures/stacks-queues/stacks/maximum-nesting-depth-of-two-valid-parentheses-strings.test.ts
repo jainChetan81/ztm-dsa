@@ -1,6 +1,6 @@
-import { maxDepthAfterSplit } from "./maximum-nesting-depth-of-the-parentheses";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
+import { maxDepthAfterSplit } from "./maximum-nesting-depth-of-two-valid-parentheses-strings.js";
 
 describe("TEST: maximum-nesting-depth-of-the-parentheses", () => {
 	test("example 1", () => {
