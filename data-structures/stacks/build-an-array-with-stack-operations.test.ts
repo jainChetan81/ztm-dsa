@@ -1,4 +1,4 @@
-import { buildArray } from "./build-an-array-with-stack-operations";
+import { buildArray } from "./build-an-array-with-stack-operations.js";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
 

@@ -1,4 +1,4 @@
-import { minSwaps } from "./minimum-number-of-swaps-to-make-the-string-balanced";
+import { minSwaps } from "./minimum-number-of-swaps-to-make-the-string-balanced.js";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
 

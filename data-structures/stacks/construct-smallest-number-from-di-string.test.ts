@@ -1,4 +1,4 @@
-import { smallestNumber } from "./construct-smallest-number-from-di-string";
+import { smallestNumber } from "./construct-smallest-number-from-di-string.js";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
 

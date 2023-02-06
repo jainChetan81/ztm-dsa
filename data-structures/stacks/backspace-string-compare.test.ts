@@ -1,4 +1,4 @@
-import { backspaceCompare } from "./backspace-string-compare";
+import { backspaceCompare } from "./backspace-string-compare.js";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
 

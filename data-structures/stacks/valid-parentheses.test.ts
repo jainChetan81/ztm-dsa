@@ -1,4 +1,4 @@
-import { isValid } from "./valid-parentheses";
+import { isValid } from "./valid-parentheses.js";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
 

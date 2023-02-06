@@ -1,4 +1,4 @@
-import { minAddToMakeValid } from "./minimum-add-to-make-parentheses-valid";
+import { minAddToMakeValid } from "./minimum-add-to-make-parentheses-valid.js";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
 

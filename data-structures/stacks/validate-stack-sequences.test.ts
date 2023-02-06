@@ -1,4 +1,4 @@
-import { validateStackSequences } from "./validate-stack-sequences";
+import { validateStackSequences } from "./validate-stack-sequences.js";
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
 
