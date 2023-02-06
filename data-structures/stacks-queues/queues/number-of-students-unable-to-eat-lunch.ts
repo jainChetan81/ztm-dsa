@@ -23,8 +23,29 @@
 // Example 2:
 // Input: students = [1,1,1,0,0,1], sandwiches = [1,0,0,0,1,1]
 // Output: 3
+type Input = 0 | 1;
+export function countStudents(students: Input[], sandwiches: Input[]): number {
+	let i = 0;
+	while (true) {
+		const studentIsEating = checkCompatibilityOfSandwich(students[0], sandwiches[0]);
+		if (studentIsEating) {
+			students.shift();
+			sandwiches.shift();
+		} else {
+			students.push(students.shift()!);
+		}
+		if (checkIfNobodyWantsToEatSandwich(students, sandwiches[0])) {
+			return students.length;
+		}
+	}
+}
 
-export function countStudents(students: number[], sandwiches: number[]): number {}
+function checkCompatibilityOfSandwich(student: Input, sandwich: Input) {
+	return student === sandwich;
+}
+function checkIfNobodyWantsToEatSandwich(students: Input[], sandwich: Input) {
+	return students.every((student) => student !== sandwich);
+}
 // example 1
 console.log(countStudents([1, 1, 0, 0], [0, 1, 0, 1])); // 0
 // example 2
