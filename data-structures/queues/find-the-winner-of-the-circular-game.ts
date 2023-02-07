@@ -21,15 +21,26 @@
 // 7) Friend 1 leaves the circle. Next start is friend 3.
 // 8) Count 2 friends clockwise, which are friends 3 and 5.
 // 9) Friend 5 leaves the circle. Only friend 3 is left, so they are the winner.
-
+// 0,1,2,3,4,5 =>[8,2]
 // Example 2:
 // Input: n = 6, k = 5
 // Output: 1
 // Explanation: The friends leave in this order: 5, 4, 6, 2, 3. The winner is friend 1.
 export function findTheWinner(n: number, k: number): number {
-
-};
+	const queue = new Array(n).fill(1).map((i, idx) => idx + 1);
+	console.log(queue);
+	let prevSliceIndex = 0;
+	while (queue.length > 1) {
+		prevSliceIndex = (prevSliceIndex + k - 1) % queue.length;
+		queue.splice(prevSliceIndex, 1);
+	}
+	return queue[0];
+}
 // example 1
 console.log(findTheWinner(5, 2)); // 3
 // example 2
 console.log(findTheWinner(6, 5)); // 1
+// [ 1, 2, 3, 4, 5, 6 ]
+// [ 1, 2, 3, 4, 6 ], 5
+// [ 1, 2, 3, 6 ], 3
+// [ 1, 2, 3, ]
