@@ -1,6 +1,6 @@
 // @ts-ignore
 import { describe, expect, test } from "bun:test";
-import { deckRevealedIncreasing } from "./reveal-cards-in-increasing-order.js";
+import { deckRevealedIncreasing } from "./(unsolved)reveal-cards-in-increasing-order.js";
 
 describe("TEST: reveal-cards-in-increasing-order.test", () => {
 	test("example 1", () => {

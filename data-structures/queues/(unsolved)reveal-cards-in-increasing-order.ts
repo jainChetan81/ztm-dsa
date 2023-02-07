@@ -28,9 +28,15 @@
 // Input: deck = [1,1000]
 // Output: [1,1000]
 export function deckRevealedIncreasing(deck: number[]): number[] {
-
-};
+	const sortedArray = deck.sort((a, b) => a - b);
+	console.log(sortedArray.join(" "));
+	const res: number[] = [];
+	for (let i = 0; i < sortedArray.length; i++) {
+		const tempArr = sortedArray.splice(0, 2);
+		console.log(tempArr);
+	}
+}
 // example 1
-console.log(deckRevealedIncreasing([17,13,11,2,3,5,7])); // [2,13,3,11,5,17,7]
+console.log(deckRevealedIncreasing([17, 13, 11, 2, 3, 5, 7])); // [2,13,3,11,5,17,7]
 // example 2
-console.log(deckRevealedIncreasing([1,1000])); // [1,1000]
+console.log(deckRevealedIncreasing([1, 1000])); // [1,1000]
