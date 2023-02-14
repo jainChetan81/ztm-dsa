@@ -1,13 +1,4 @@
-const rotateArr1: number[] = [1, 2, 3, 4, 5, 6, 7];
 const rotateArr2: number[] = [-1, -100, 3, 99];
-function rotateArray(arr: number[], rotate: number): number[] {
-	const temp = [...arr];
-	for (let i = 0; i < arr.length; i++) {
-		const rotationIndex = (i + rotate) % arr.length;
-		temp[rotationIndex] = arr[i];
-	}
-	return temp;
-}
 // rotate by mutating the array
 function rotate(nums: number[], k: number): void {
 	const result = [...nums];
@@ -31,9 +22,6 @@ console.log(rotateArr2.join(" ")); //[3,99,-1,-100]
 // 345678345
 // 468435735
 
-// 6;
-// 40 + 6;
-// 460;
 function splitEvenOdd(num: number): number {
 	let even = 0;
 	let odd = 0;
