@@ -10,16 +10,10 @@ function rotateArray(arr: number[], rotate: number): number[] {
 }
 // rotate by mutating the array
 function rotate(nums: number[], k: number): void {
-	let tempPreviousValue = undefined;
-	let currentIndex = 0;
-	for (let i = nums.length - 1; i >= 0; i--) {
-		const nextIndex = (currentIndex + k) % nums.length;
-		console.log(currentIndex, ".j", "rotationIndex:", nextIndex);
-		console.log(nums[currentIndex], nums[nextIndex]);
-		const temp = nums[nextIndex];
-		nums[nextIndex] = tempPreviousValue !== undefined ? tempPreviousValue : nums[currentIndex];
-		tempPreviousValue = temp;
-		currentIndex = nextIndex;
+	const result = [...nums];
+	for (let i = 0; i < result.length; i++) {
+		const rotationIndex = (i + k) % result.length;
+		nums[rotationIndex] = result[i];
 	}
 }
 // console.log(arr.join(" "), 7);
