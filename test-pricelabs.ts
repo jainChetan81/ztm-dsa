@@ -35,7 +35,7 @@ console.log(checkEqualBrackets("()")); //true
 console.log(checkEqualBrackets("(){()}")); //true
 console.log(checkEqualBrackets("({(}))")); //false
 console.log("--------------------------------------------------");
-function addOneToArray(num: number[], k: number): number[] {
+function addToArrayForm(num: number[], k: number): number[] {
 	let carry = k;
 	for (let i = num.length - 1; i >= 0; i--) {
 		[num[i], carry] = [(num[i] + carry) % 10, Math.floor((num[i] + carry) / 10)];
@@ -46,11 +46,6 @@ function addOneToArray(num: number[], k: number): number[] {
 	// convert carry to array
 	const carryArray = carry.toString().split("").map(Number);
 	return [...carryArray, ...num];
-}
-function addToArrayForm(num: number[], k: number): number[] {
-	const number = +num.join("") + k;
-	console.log(num, +num.join(""), k);
-	return number.toString().split("").map(Number);
 }
 
 // console.log(addToArrayForm([8, 9, 9], 15));
