@@ -38,4 +38,33 @@ function splitEvenOdd(num: number): number {
 	return maxTenMultiplierOfOdd + odd;
 }
 
-// console.log(splitEvenOdd(345678345));
+// // console.log(splitEvenOdd(345678345));
+// add(1,2) and add(1)(2) in a single function
+// function add(...arr: number[]): number {
+// 	let sum = 0;
+// 	console.log(arr.length > 1);
+// 	arr.forEach((a) => {
+// 		sum += a;
+// 	});
+// 	if (arr.length > 1) return sum;
+// 	// return sum;
+// 	return (s: number) => {
+// 		return sum + s;
+// 	};
+// }
+// console.log(add(1, 2));
+// console.log(add(1)(2));
+
+// [1,2,3,4,5,6,3,23,"2","1",5,6,7,3,2,8,9]
+
+function returnUniqueWithoutUsingSetOrMap(arr: (string | number)[]): (string | number)[] {
+	const obj: Record<string, string | number> = {};
+	for (let i = 0; i < arr.length; i++) {
+		let type = typeof arr[i];
+		const key = type === "string" ? "string" + arr[i] : arr[i];
+		obj[key] = arr[i];
+	}
+	return Object.values(obj);
+}
+
+console.log(returnUniqueWithoutUsingSetOrMap([1, 2, 3, 4, 5, 6, 3, 23, "2", "1", 5, 6, 7, 3, 2, 8, 9]));
