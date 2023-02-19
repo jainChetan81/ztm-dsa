@@ -5,4 +5,4 @@ export function fibonacciRecursive(n: number): number {
 // example 1
 // fibonacciRecursive(3); // 0 1 1 2 3
 // example 2
-fibonacciRecursive(8); // 0 1 1 2 3 5 8
+console.log(fibonacciRecursive(8)); // 0 1 1 2 3 5 8
