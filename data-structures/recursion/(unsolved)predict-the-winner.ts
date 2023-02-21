@@ -35,6 +35,6 @@ function PredictTheWinner(nums: number[]): boolean {
 	return playerOne >= playerTwo;
 }
 
-// console.log(PredictTheWinner([1, 5, 2])); //false
+console.log(PredictTheWinner([1, 5, 2])); //false
 console.log(PredictTheWinner([1, 5, 233, 7])); //true
-// console.log(PredictTheWinner([1, 2, 99])); //true
+console.log(PredictTheWinner([1, 2, 99])); //true
