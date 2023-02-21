@@ -20,25 +20,21 @@ function PredictTheWinner(nums: number[]): boolean {
 	let odd = true;
 	while (nums.length > 0) {
 		const [first, last] = [nums[0], nums.at(-1)!];
-		if (odd) {
-			if (first > last) {
-				playerOne += nums.shift() ?? 0;
-			} else {
-				playerOne += nums.pop() ?? 0;
-			}
+		let tempValue = 0;
+		if (first > last) {
+			tempValue += nums.shift() ?? 0;
+		} else {
+			tempValue += nums.pop() ?? 0;
 		}
-		if (!odd) {
-			if (first > last) {
-				playerTwo += nums.shift() ?? 0;
-			} else {
-				playerTwo += nums.pop() ?? 0;
-			}
-		}
+		if (odd) playerOne += tempValue;
+		if (!odd) playerTwo += tempValue;
 		odd = !odd;
-		console.log(playerOne, playerTwo);
 	}
+	console.log("playerOne=>", playerOne);
+	console.log("playerTwo=>", playerTwo);
 	return playerOne >= playerTwo;
 }
 
 // console.log(PredictTheWinner([1, 5, 2])); //false
 console.log(PredictTheWinner([1, 5, 233, 7])); //true
+// console.log(PredictTheWinner([1, 2, 99])); //true

@@ -1,5 +1,4 @@
 // Definition for singly-linked list.
-// @ts-expect-error dasds
 class ListNode {
 	val: number;
 	next: ListNode | null;
