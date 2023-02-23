@@ -24,7 +24,7 @@ export function lastRemainingBig(
 	start = true
 ): number {
 	console.log(arr.join(" "));
-	if (arr.length < 2) return arr[0];
+	if (arr.length < 2) return arr[0] ?? 0;
 	const newArr: number[] = [];
 	if (start) {
 		for (let i = 1; i < arr.length; i += 2) {
