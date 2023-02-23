@@ -39,7 +39,7 @@ export function lastRemainingBig(
 	return lastRemainingBig(n, newArr, !start);
 }
 
-export function lastRemaining(): number {}
+export function lastRemaining(n: number): number {}
 
-console.log(lastRemaining(9)); //6
+// console.log(lastRemaining(9)); //6
 // console.log(lastRemaining(1)); //1

@@ -1,4 +1,4 @@
-import { lastRemainingBig } from "./elimination-game.ts";
+import { lastRemainingBig } from "./(unsolved)elimination-game.ts";
 Deno.bench("elimination-game recursive 8", () => {
 	const arr = Array(6162)
 		.fill(6162)
