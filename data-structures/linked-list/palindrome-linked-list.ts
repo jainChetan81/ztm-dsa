@@ -10,7 +10,6 @@
 // Constraints:
 //     The number of nodes in the list is in the range [1, 105].
 //     0 <= Node.val <= 9
-// @ts-expect-error
 class ListNode {
 	val: number;
 	next: ListNode | null;
