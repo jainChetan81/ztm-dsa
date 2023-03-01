@@ -21,13 +21,63 @@
 
 // Expected Time Complexity: O(logN)
 // Expected Auxiliary Space: O(1)
-function searchRange(nums: number[], target: number): number[] {}
+console.log("==============Search Range====================");
+function searchRange(arr: number[], target: number): number[] {
+	// let left = 0;
+	// let right = arr.length - 1;
+	// let result = [];
+	// while (left <= right) {
+	// 	const mid = Math.floor((left + right) / 2);
+	// 	if (arr[mid] === target) {
+	// 		result.push(mid);
+	// 		let left = mid - 1;
+	// 		let right = mid + 1;
+	// 		while (arr[left] === target) {
+	// 			result.push(left);
+	// 			left--;
+	// 		}
+	// 		while (arr[right] === target) {
+	// 			result.push(right);
+	// 			right++;
+	// 		}
+	// 		break;
+	// 	} else if (arr[mid] > target) {
+	// 		right = mid - 1;
+	// 	} else {
+	// 		left = mid + 1;
+	// 	}
+	// }
+	// return result;
+
+	let left = 0,
+		right = arr.length - 1;
+
+	while (left <= right) {
+		const mid = Math.floor((right + left) / 2);
+		if (arr[mid] > target) {
+			right = mid - 1;
+		} else if (arr[mid] < target) {
+			left = mid + 1;
+		} else if (arr[mid] === target) {
+			left = mid;
+			right = mid;
+			while (arr[left] === target) {
+				left--;
+			}
+			while (arr[right] === target) {
+				right++;
+			}
+			return [left + 1, right - 1];
+		}
+	}
+	return [-1, -1];
+}
 // example 1
-// console.log(searchRange([5, 7, 7, 8, 8, 10], 8)); // 2
+console.log(searchRange([5, 7, 7, 8, 8, 10], 8)); // [3, 4]
 // // example 2
-// console.log(searchRange([5, 7, 7, 8, 8, 10], 6));
+console.log(searchRange([5, 7, 7, 8, 8, 10], 7)); // [1, 2]
 // // example 3
-// console.log(searchRange([], 0));
+console.log(searchRange([], 0)); // [-1, -1]
 
 // *****************QUESTION 2*************
 const obj = {
@@ -113,13 +163,13 @@ function curriedSum(...a: number[]) {
 }
 // const cs = curriedSum(add);
 // console.log(cs, add.length)
-console.log("----------");
-curriedSum(2)(3, 4);
-curriedSum(2, 3, 4);
-curriedSum(2, 3)(4);
+// console.log("---------- curriedSum");
+// curriedSum(2)(3, 4);
+// curriedSum(2, 3, 4);
+// curriedSum(2, 3)(4);
 
 //find missing number in array
-console.log("======================");
+// console.log("====================== missingNumbers ");
 function missingNumbers(arr: number[]): number {
 	let totalSum = ((arr.length + 1) * (arr.length + 2)) / 2;
 	for (let i = 0; i < arr.length; i++) {
@@ -127,7 +177,7 @@ function missingNumbers(arr: number[]): number {
 	}
 	return totalSum;
 }
-console.log(missingNumbers([1, 4, 3, 6, 2])); //5
+// console.log(missingNumbers([1, 4, 3, 6, 2])); //5
 function twoMissingNumbers(arr: number[]): [number, number] {
 	let totalSum = ((arr.length + 2) * (arr.length + 3)) / 2;
 	let totalMultiplication = 1;
@@ -154,7 +204,7 @@ function twoMissingNumbers(arr: number[]): [number, number] {
 
 	return [smallerElement, totalSum - smallerElement];
 }
-console.log(twoMissingNumbers([1, 4, 6, 2])); //[3,5]
+// console.log(twoMissingNumbers([1, 4, 6, 2])); //[3,5]
 
 // Sort an array of 0s, 1s, and 2s using the Pointer Approach:
 // Given an array of size N containing only 0s, 1s, and 2s; sort the array in ascending order.
@@ -180,12 +230,12 @@ function sortArray(arr: number[]): number[] {
 	}
 	return arr;
 }
-console.log("=========== SORT ARRAY ===========");
+// console.log("=========== SORT ARRAY ===========");
 
 // example 1
-console.log(sortArray([0, 1, 2, 0, 1, 2])); //[0, 0, 1, 1, 2, 2]
+// console.log(sortArray([0, 1, 2, 0, 1, 2])); //[0, 0, 1, 1, 2, 2]
 // example 2
-console.log(sortArray([0, 2, 1, 2, 0])); //[0, 0, 1, 2, 2]
+// console.log(sortArray([0, 2, 1, 2, 0])); //[0, 0, 1, 2, 2]
 
 //Given a string, reverse only the alphabets keeping rest of the character at the same place
 
@@ -204,39 +254,34 @@ function reverseString(str: string): string {
 	}
 	return str;
 }
-console.log("=========== REVERSE STRING ===========");
+// console.log("=========== REVERSE STRING ===========");
 
-console.log(reverseString("a,b$c")); // c,b$a
-console.log(reverseString("Ab,c,de!$")); // ed,c,bA!$
+// console.log(reverseString("a,b$c")); // c,b$a
+// console.log(reverseString("Ab,c,de!$")); // ed,c,bA!$
 
 // write a function to iterate through json and print all values, that JSON could have obj, array, string or number  like [[[[{a:{b:c:1}}}]]],2,3], {a:1,b:{c:2},d:[1,2]}
-console.log("=========== ITERATE JSON ===========");
+// console.log("=========== ITERATE JSON ===========");
 
-function iterateJson(json: any, count = 0): void {
+function iterateJson(json: any): void {
 	// console.log("=========== ===========,", json);
 	if (Array.isArray(json)) {
 		for (let i = 0; i < json.length; i++) {
-			// console.log(count, "array", json[i]);
-			count++;
-			iterateJson(json[i], count);
+			iterateJson(json[i]);
 		}
 	}
 	if (!Array.isArray(json) && typeof json === "object") {
 		for (const key in json) {
-			// console.log(count, "obj", key, json[key]);
-			count++;
-			iterateJson(json[key], count);
+			iterateJson(json[key]);
 		}
 	}
 	if (["number", "string", "boolean"].includes(typeof json)) {
-		console.log(count, "---------", json);
-		count++;
+		console.log(json);
 	}
 }
 
-iterateJson([[[[{ a: { b: { c: 1 } } }]]], 2, 3]); // 1,2,3
-iterateJson({ a: 3, b: { c: 5 }, d: [1, 2] }); // 1,2,1,2
-iterateJson([1, 2, 3]); // 1,2,1,2
+// iterateJson([[[[{ a: { b: { c: 1 } } }]]], 2, 3]); // 1,2,3
+// iterateJson({ a: 3, b: { c: 5 }, d: [1, 2] }); // 1,2,1,2
+// iterateJson([1, 2, 3]); // 1,2,1,2
 
 // binary tree, print all nodes in a spiral
 // Given a binary tree, print nodes in spiral order. For below tree, output should be 1, 2, 3, 4, 5, 6, 7.
@@ -245,7 +290,7 @@ iterateJson([1, 2, 3]); // 1,2,1,2
 //     2       3
 //   /   \   /   \
 //  7     6 5     4
-console.log("=========== SPIRAL TREE ===========");
+// console.log("=========== SPIRAL TREE ===========");
 
 class Node {
 	left: Node | null;
@@ -297,4 +342,4 @@ root.left.right = new Node(6);
 root.right.left = new Node(5);
 root.right.right = new Node(4);
 
-spiralTree(root); // 1,2,3,4,5,6,7
+// spiralTree(root); // 1,2,3,4,5,6,7
