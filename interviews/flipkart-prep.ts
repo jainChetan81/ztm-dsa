@@ -291,3 +291,17 @@ root.right.left = new Node(5);
 root.right.right = new Node(4);
 
 // spiralTree(root); // 1,2,3,4,5,6,7
+
+
+Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8,]     , X = 3
+Output: [3, 2, 1, 6, 5, 4,  8, 7]
+Stack[1,2,3], i =
+
+Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]   ,  X = 5
+Output:  [5, 4, 3, 2, 1, 8, 7, 6]
+
+Input:  arr = [1, 2, 3, 4, 5, 6]   , X = 1
+Output:  [1, 2, 3, 4, 5, 6]
+
+Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]  ,  X = 10
+Output:  [8, 7, 6, 5, 4, 3, 2, 1]
