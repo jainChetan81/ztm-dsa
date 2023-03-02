@@ -1,4 +1,3 @@
-
 console.log("==============Search Range====================");
 function searchRange(arr: number[], target: number): number[] {
 	let left = 0,
@@ -141,14 +140,11 @@ function twoMissingNumbers(arr: number[]): [number, number] {
 		totalMultiplication /= arr[i];
 	}
 	const avg = totalSum / 2;
-	let sumSmallerHalf = 0,
-		sumGreaterHalf = 0;
+	let sumSmallerHalf = 0;
 	// find the average of the first half and second half
 	for (let i = 0; i < arr.length; i++) {
 		if (arr[i] <= avg) {
 			sumSmallerHalf += arr[i];
-		} else {
-			sumGreaterHalf += arr[i];
 		}
 	}
 	const totalSmallerHalf = ((arr.length + 1) * arr.length) / 2;
