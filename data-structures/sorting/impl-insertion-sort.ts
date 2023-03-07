@@ -12,23 +12,21 @@ export function insertionSortNew(array: number[]) {
 }
 
 export function insertionSort(array: number[]) {
-	for (let i = 0; i < array.length; i++) {
-		if (array[i] < array[0]) {
-			array.unshift(array.splice(0, i)[0]);
-		} else {
-			for (let j = 1; j < i; j++) {
-				if (array[i] > array[j - 1] && array[i] < array[j]) {
-					array.splice(j, 0, array.slice(i, 1)[0]);
-				}
-			}
+	for (let i = 1; i < array.length; i++) {
+		const curr = array[i];
+		let j = i - 1;
+		while (j >= 0 && curr < array[j]) {
+			array[j + 1] = array[j];
+			j--;
 		}
+		array[j + 1] = curr;
 	}
 }
 
 insertionSort(numbers);
 insertionSortNew(numbers2);
-console.log(numbers);
-console.log(numbers2);
+// console.log(numbers);
+// console.log(numbers2);
 
 // used when list is almost sorted
 // O(n) when list is almost sorted
