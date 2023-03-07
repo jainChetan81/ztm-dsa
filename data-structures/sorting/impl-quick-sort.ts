@@ -1,15 +1,13 @@
 const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 type A = number[];
 type N = number;
-function quickSort(array: A, left: N, right: N) {
+function quickSort(array: A, left: N = 0, right: N = array.length - 1) {
 	let pivot;
 	let partitionIndex;
 
 	if (left < right) {
 		pivot = right;
 		partitionIndex = partition(array, pivot, left, right);
-
-		//sort left and right
 		quickSort(array, left, partitionIndex - 1);
 		quickSort(array, partitionIndex + 1, right);
 	}
@@ -31,11 +29,9 @@ function partition(array: A, pivot: N, left: N, right: N) {
 }
 
 function swap(array: A, firstIndex: N, secondIndex: N) {
-	const temp = array[firstIndex];
-	array[firstIndex] = array[secondIndex];
-	array[secondIndex] = temp;
+	[array[firstIndex], array[secondIndex]] = [array[secondIndex], array[firstIndex]];
 }
 
 //Select first and last index as 2nd and 3rd parameters
-quickSort(numbers, 0, numbers.length - 1);
+quickSort(numbers);
 console.log(numbers);
