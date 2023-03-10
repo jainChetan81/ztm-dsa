@@ -3,14 +3,14 @@
 // Q Implement the following function:sum(1)(2)(3)(4)() returns 10sum(1)() returns 1sum() returns 0
 // Q. Anagram strings
 // Q. Number of ways where the square of numbers is equal to the product of 2 numbers
-// Q1. LC Med - Unique Binary Search Tree
-// Q2. Trapping Rain Water
-// Q3. Number of SubArrays with odd sum
+//! Q1. LC Med - Unique Binary Search Tree
+//! Q2. Trapping Rain Water
+//! Q3. Number of SubArrays with odd sum
 // Q4. Merge two sorted arrays
-// Q5. Count ways to reach the n’th stair (Climbing Stairs)
-// Q6. Find all permutations https://leetcode.com/problems/permutations/
+//! Q5. Count ways to reach the n’th stair (Climbing Stairs)
+//! Q6. Find all permutations https://leetcode.com/problems/permutations/
 // Q7. Maximum product subarray https://leetcode.com/problems/maximum-product-subarray/
-// Q8. https://leetcode.com/problems/number-of-ways-to-split-a-string/
+//! Q8. https://leetcode.com/problems/number-of-ways-to-split-a-string/
 // https://leetcode.com/problems/number-of-ways-to-split-a-string/discuss/1851058/Cpp-concept-O(n)-space-complexity-is-O(n)
 
 // Given two arrays of integers nums and index. Your task is to create a target array under the following rules: Initially, the target array is empty. From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array. Repeat the previous step until there are no elements to read in nums and index. Return the target array. It is guaranteed that the insertion operations will be valid.
