@@ -1,13 +1,13 @@
 // *******BFS********
 // if the node is close to parent
 // if the tree is very deep and the solutions are rare
-// finding the shortest path
+//? finding the shortest path
 // time complexity O(n)
 // memory is O(n)
 // *********DFS*********
 // if the tree is very wide, we need something that requires less memory
 // if the solutions are frequent but very deep in tree
-// determining whether a path exists between two nodes
+//? determining whether a path exists between two nodes or if the node exists
 // time complexity O(n)
 // Space Complexity O(h), h is the max depth of the tree
 class Node {
@@ -91,9 +91,39 @@ class BinarySearchTree {
 		if (currentNode.right) queue.push(currentNode.right);
 		return this.breadthFirstSearchRecursive(queue, list);
 	}
-	depthFirstSearchInOrder(): Node[] {
+	DFSInOrder() {
 		if (!this.root) return [];
+		return traverseInOrder(this.root, []);
 	}
+	DFSPreOrder() {
+		if (!this.root) return [];
+		return traversePreOrder(this.root, []);
+	}
+	DFSPostOrder() {
+		if (!this.root) return [];
+		return traversePostOrder(this.root, []);
+	}
+}
+function traverseInOrder(node: Node | null, list: Node[]) {
+	if (!node) return list;
+	if (node.left) traverseInOrder(node.left, list);
+	list.push(node);
+	if (node.right) traverseInOrder(node.right, list);
+	return list;
+}
+function traversePreOrder(node: Node | null, list: Node[]) {
+	if (!node) return list;
+	list.push(node);
+	if (node.left) traversePreOrder(node.left, list);
+	if (node.right) traversePreOrder(node.right, list);
+	return list;
+}
+function traversePostOrder(node: Node | null, list: Node[]) {
+	if (!node) return list;
+	if (node.left) traversePostOrder(node.left, list);
+	if (node.right) traversePostOrder(node.right, list);
+	list.push(node);
+	return list;
 }
 
 const tree = new BinarySearchTree();

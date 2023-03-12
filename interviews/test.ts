@@ -60,7 +60,7 @@ function splitEvenOdd(num: number): number {
 function returnUniqueWithoutUsingSetOrMap(arr: (string | number)[]): (string | number)[] {
 	const obj: Record<string, string | number> = {};
 	for (let i = 0; i < arr.length; i++) {
-		let type = typeof arr[i];
+		const type = typeof arr[i];
 		const key = type === "string" ? "string" + arr[i] : arr[i];
 		obj[key] = arr[i];
 	}

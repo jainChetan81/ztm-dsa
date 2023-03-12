@@ -45,13 +45,6 @@ const curryFn = (fn) => {
 	}
 	return rec;
 };
-// return (...args) => {
-//     console.log(args);
-//     return (...args2) => {
-//         console.log(args2);
-//         return fn(...args, ...args2);
-//     };
-// };
 
 const sumNew = curryFn(sum);
 const appendStrNew = curryFn(appendStr);
