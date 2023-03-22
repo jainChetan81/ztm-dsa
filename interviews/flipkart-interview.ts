@@ -20,11 +20,8 @@ function findRange(arr: number[], dep: number[]): number {
 	let max = 0;
 	for (let i = 0; i < arr.length; i++) {
 		for (let j = arr[i]; j < dep[i]; j++) {
-			if (map.has(j)) {
-				map.set(j, map.get(j) + 1);
-			} else {
-				map.set(j, 1);
-			}
+			const value = map.get(j) ?? 0;
+			map.set(j, value + 1);
 			max = Math.max(max, map.get(j));
 		}
 	}
@@ -33,4 +30,4 @@ function findRange(arr: number[], dep: number[]): number {
 
 console.log(findRange(arr, dep));
 
-// implement LrCachig
+// implement LrUCachig
