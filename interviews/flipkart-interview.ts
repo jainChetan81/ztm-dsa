@@ -12,17 +12,17 @@
 // 900=>910=>940=>950
 // map.set(“900-910”,0)
 
-const arr = [900, 940, 950, 1100, 1500, 1800];
+const arr = [900, 940, 950, 1121, 1500, 1800];
 const dep = [910, 1200, 1120, 1130, 1900, 2000];
 
 function findRange(arr: number[], dep: number[]): number {
-	const map = new Map();
 	let max = 0;
+	const map = new Map<number, number>();
 	for (let i = 0; i < arr.length; i++) {
 		for (let j = arr[i]; j < dep[i]; j++) {
-			const value = map.get(j) ?? 0;
-			map.set(j, value + 1);
-			max = Math.max(max, map.get(j));
+			const numberOfBuses = map.get(j) ?? 0;
+			map.set(j, numberOfBuses + 1);
+			max = Math.max(map.get(j)!, max);
 		}
 	}
 	return max;
