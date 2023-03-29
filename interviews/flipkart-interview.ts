@@ -8,9 +8,6 @@
 // dep[] = {9:10, 12:00}
 // Output: 1
 // Explanation: Only one platform is needed.
-// On for loop for both
-// 900=>910=>940=>950
-// map.set(“900-910”,0)
 
 const arr = [900, 940, 950, 1121, 1500, 1800];
 const dep = [910, 1200, 1120, 1130, 1900, 2000];

@@ -79,12 +79,13 @@ function returnMissingNumber(arr1: number[], arr2: number[]): number {
 
 // console.log(returnMissingNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])); // 7
 const arrFlat = [[1, 2], [[3, 4]], [5]];
-function flattenArray(arr: (number[] | number[][])[], stack: number[] = []): number[] {
+function flattenArray(arr: number[] | number[][], stack: number[] = []): number[] {
 	console.log(arr);
 	for (let i = 0; i < arr.length; i++) {
 		if (Array.isArray(arr[i])) {
 			flattenArray(arr[i], stack);
-		} else {
+		}
+		if (!Array.isArray(arr[i]) && typeof arr[i] === "number") {
 			stack.push(arr[i]);
 		}
 	}
@@ -93,7 +94,7 @@ function flattenArray(arr: (number[] | number[][])[], stack: number[] = []): num
 }
 // console.log(flattenArray(arrFlat)); //Output: [1,2,3,4,5])
 
-// Implement curriedSum such that all invokations to cs should return answer as 9
+// Implement curriedSum such that all invocations to cs should return answer as 9
 // Gave a hint: fn.length gives no of arguments that function takes . eg: in our case add.length = 3
 function curriedSum(...a: number[]) {
 	// console.log(a);
@@ -292,16 +293,101 @@ root.right.right = new Node(4);
 
 // spiralTree(root); // 1,2,3,4,5,6,7
 
+// Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8,]     , X = 3
+// Output: [3, 2, 1, 6, 5, 4,  8, 7]
+// Stack[1,2,3], i =
 
-Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8,]     , X = 3
-Output: [3, 2, 1, 6, 5, 4,  8, 7]
-Stack[1,2,3], i =
+// Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]   ,  X = 5
+// Output:  [5, 4, 3, 2, 1, 8, 7, 6]
 
-Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]   ,  X = 5
-Output:  [5, 4, 3, 2, 1, 8, 7, 6]
+// Input:  arr = [1, 2, 3, 4, 5, 6]   , X = 1
+// Output:  [1, 2, 3, 4, 5, 6]
 
-Input:  arr = [1, 2, 3, 4, 5, 6]   , X = 1
-Output:  [1, 2, 3, 4, 5, 6]
+// Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]  ,  X = 10
+// Output:  [8, 7, 6, 5, 4, 3, 2, 1]
 
-Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]  ,  X = 10
-Output:  [8, 7, 6, 5, 4, 3, 2, 1]
+// LRU Caching Least Recently Used
+
+// Input
+// ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+// [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+// Output
+// [null, null, null, 1, null, -1, null, -1, 3, 4]
+
+// Explanation
+// LRUCache lRUCache = new LRUCache(2);
+// lRUCache.put(1, 1); // cache is {1=1}
+// lRUCache.put(2, 2); // cache is {1=1, 2=2}
+// lRUCache.get(1);    // return 1
+// lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+// lRUCache.get(2);    // returns -1 (not found)
+// lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+// lRUCache.get(1);    // return -1 (not found)
+// lRUCache.get(3);    // return 3
+// lRUCache.get(4);    // return 4
+class LRUCache {
+	private cache: Map<string, string>;
+	private capacity: number;
+	constructor(capacity: number) {
+		this.cache = new Map();
+		this.capacity = capacity;
+	}
+	get(key: string): string {
+		console.log("get", this.cache.keys());
+		if (!this.cache.has(key)) return "-1";
+		const value = this.cache.get(key)!;
+		this.cache.delete(key);
+		this.cache.set(key, value);
+		return value;
+	}
+	put(key: string, value: string): void {
+		console.log("put", this.cache.keys());
+		if (this.cache.has(key)) {
+			this.cache.delete(key);
+		}
+		if (this.cache.size === this.capacity) {
+			this.cache.delete(this.cache.keys().next().value);
+		}
+		this.cache.set(key, value);
+	}
+}
+
+const lRUCache = new Map();
+const itr = lRUCache.keys();
+lRUCache.set("1", "1"); // cache is {1=1}
+lRUCache.set("2", "2"); // cache is {1=1, 2=2}
+// lRUCache.get("2"); // return 1
+lRUCache.set("3", "3"); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.set("4", "4"); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+// lRUCache.get("2"); // returns -1 (not found)
+lRUCache.delete("1"); // return -1 (not found)
+lRUCache.set("1", "1"); // cache is {1=1}
+// lRUCache.get("3"); // return 3
+console.log(itr.next());
+console.log(itr.next());
+console.log(itr.next());
+console.log(itr.next());
+
+// jump-game-ii
+// You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].
+// Each element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at nums[i], you can jump to any nums[i + j] where:
+//     0 <= j <= nums[i] and
+//     i + j < n
+// Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].
+
+function jump(nums: number[]): number {
+	let totalJumps = 0;
+	let currentJumpEnd = 0;
+	let farthest = 0;
+	for (let i = 0; i < nums.length - 1; i++) {
+		farthest = Math.max(farthest, i + nums[i]);
+		if (i === currentJumpEnd) {
+			totalJumps++;
+			currentJumpEnd = farthest;
+		}
+	}
+	return totalJumps;
+}
+// console.log(jump([2, 3, 1, 1, 4])); //2
+// console.log(jump([2, 3, 0, 1, 4])); //2
+// console.log(jump([1, 1, 1, 1])); //0
