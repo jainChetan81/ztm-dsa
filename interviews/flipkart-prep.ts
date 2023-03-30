@@ -1,35 +1,3 @@
-console.log("==============Search Range====================");
-function searchRange(arr: number[], target: number): number[] {
-	let left = 0,
-		right = arr.length - 1;
-
-	while (left <= right) {
-		const mid = Math.floor((right + left) / 2);
-		if (arr[mid] > target) {
-			right = mid - 1;
-		} else if (arr[mid] < target) {
-			left = mid + 1;
-		} else if (arr[mid] === target) {
-			left = mid;
-			right = mid;
-			while (arr[left] === target) {
-				left--;
-			}
-			while (arr[right] === target) {
-				right++;
-			}
-			return [left + 1, right - 1];
-		}
-	}
-	return [-1, -1];
-}
-// example 1
-console.log(searchRange([5, 7, 7, 8, 8, 10], 8)); // [3, 4]
-// // example 2
-console.log(searchRange([5, 7, 7, 8, 8, 10], 7)); // [1, 2]
-// // example 3
-console.log(searchRange([], 0)); // [-1, -1]
-
 // *****************QUESTION 2*************
 const obj = {
 	a: {
@@ -40,13 +8,15 @@ const obj = {
 };
 
 // Create a function
-function updateData<T extends Object>(obj: T) {
+function updateData<T extends typeof obj>(obj: T) {
 	const object = { ...obj };
 	return (a: number, b: number, c: number) => {
 		for (let key in object) {
 			if (typeof object[key] === "function") {
-				object[key] = object[key](a, b, c);
+				// @ts-ignore
+				object[key] = object[key]!(a, b, c);
 			} else {
+				// @ts-ignore
 				object[key] = updateData(object[key])(a, b, c);
 			}
 		}
@@ -83,10 +53,10 @@ function flattenArray(arr: number[] | number[][], stack: number[] = []): number[
 	console.log(arr);
 	for (let i = 0; i < arr.length; i++) {
 		if (Array.isArray(arr[i])) {
-			flattenArray(arr[i], stack);
+			flattenArray(arr[i] as number[], stack);
 		}
 		if (!Array.isArray(arr[i]) && typeof arr[i] === "number") {
-			stack.push(arr[i]);
+			stack.push(arr[i] as number);
 		}
 	}
 	console.log("stack", stack);
@@ -260,7 +230,7 @@ function spiralTree(root: Node): void {
 	while (stack1.length || stack2.length) {
 		// console.log("=========== ===========", stack1, stack2);
 		while (stack1.length) {
-			const node = stack1.pop();
+			const node = stack1.pop()!;
 			console.log(node.val);
 			if (node && node.right) {
 				stack2.push(node.right);
@@ -271,7 +241,7 @@ function spiralTree(root: Node): void {
 		}
 
 		while (stack2.length) {
-			const node = stack2.pop();
+			const node = stack2.pop()!;
 			console.log(node.val);
 			if (node.left) {
 				stack1.push(node.left);
@@ -391,3 +361,56 @@ function jump(nums: number[]): number {
 // console.log(jump([2, 3, 1, 1, 4])); //2
 // console.log(jump([2, 3, 0, 1, 4])); //2
 // console.log(jump([1, 1, 1, 1])); //0
+
+// search range
+
+function searchRangeRecursive(arr: number[], target: number, left = 0, right = arr.length - 1): number[] {
+	if (right < left) return [-1, -1];
+	const mid = Math.floor((left + right) / 2);
+	if (arr[mid] === target) {
+		let left = mid;
+		let right = mid;
+		while (arr[left] === target) {
+			left--;
+		}
+		while (arr[right] === target) {
+			right++;
+		}
+		return [left + 1, right - 1];
+	}
+	if (target > arr[mid]) return searchRangeRecursive(arr, target, mid + 1, right);
+	if (target < arr[mid]) return searchRangeRecursive(arr, target, left, mid - 1);
+	return [-1, -1];
+}
+// example 1
+console.log(searchRangeRecursive([5, 7, 7, 8, 8, 10], 8)); // [3, 4]
+// // example 2
+console.log(searchRangeRecursive([5, 7, 7, 8, 8, 10], 6)); // [1, 2]
+// // example 3
+console.log(searchRangeRecursive([], 0)); //
+
+// ***THREE SUM
+function threeSum(nums: number[], k = 0): number[][] {
+	nums.sort((a, b) => a - b);
+	const result: number[][] = [];
+	for (let i = 0; i < nums.length; i++) {
+		let left = i + 1;
+		let right = nums.length - 1;
+		if (i > 0 && nums[i] === nums[i - 1]) continue;
+		while (left < right) {
+			const sum = nums[i] + nums[left] + nums[right];
+			if (sum === k) {
+				result.push([nums[i], nums[left], nums[right]]);
+				left++;
+			}
+			if (sum > k) right--;
+			if (sum < k) left++;
+		}
+	}
+	return result;
+}
+console.log(threeSum([-1, 0, 1, 2, -1, -4], 0)); //[[-1,-1,2],[-1,0,1]]
+console.log(threeSum([-1, 0, 1], 0)); //[[-1, 0, 1]]
+console.log(threeSum([0, 1, 1])); //[]
+console.log(threeSum([0, 0, 0])); //[[0,0,0]]
+console.log(threeSum([1, 1, -2])); //[[-2,1,1]]
