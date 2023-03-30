@@ -9,7 +9,7 @@
 // if the solutions are frequent but very deep in tree
 //? determining whether a path exists between two nodes or if the node exists
 // time complexity O(n)
-// Space Complexity O(h), h is the max depth of the tree
+// Space Complexity O(h), h is the max depth of the tree   
 class Node {
 	right: Node | null;
 	left: Node | null;

@@ -402,6 +402,7 @@ function threeSum(nums: number[], k = 0): number[][] {
 			if (sum === k) {
 				result.push([nums[i], nums[left], nums[right]]);
 				left++;
+				while (nums[left] === nums[left - 1] && left < right) left++;
 			}
 			if (sum > k) right--;
 			if (sum < k) left++;
