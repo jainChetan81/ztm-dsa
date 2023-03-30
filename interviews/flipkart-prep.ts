@@ -362,7 +362,7 @@ function jump(nums: number[]): number {
 // console.log(jump([2, 3, 0, 1, 4])); //2
 // console.log(jump([1, 1, 1, 1])); //0
 
-// search range
+//*** search range
 
 function searchRangeRecursive(arr: number[], target: number, left = 0, right = arr.length - 1): number[] {
 	if (right < left) return [-1, -1];
@@ -415,3 +415,113 @@ console.log(threeSum([-1, 0, 1], 0)); //[[-1, 0, 1]]
 console.log(threeSum([0, 1, 1])); //[]
 console.log(threeSum([0, 0, 0])); //[[0,0,0]]
 console.log(threeSum([1, 1, -2])); //[[-2,1,1]]
+
+// An integer array original is transformed into a doubled array changed by appending twice the value of every element in original, and then randomly shuffling the resulting array.
+// Given an array changed, return original if changed is a doubled array. If changed is not a doubled array, return an empty array. The elements in original may be returned in any order.
+
+function changeArray(num: number[]) {
+	const result: number[] = [];
+	for (let i = 0; i < num.length; i++) {
+		if (num[i] % 2 === 0) {
+			result.push(num[i] / 2);
+		} else {
+			return [];
+		}
+	}
+	return result;
+}
+// Function findDuplicates(nums:number[]):number[] {
+// 	nums.sort((a,b)=>a-b)
+// Const result:number[]=[]
+// Const set=new Set<number>()
+// 	for( i=0;i<nums.length-1;++i){
+//             		if(set.has(i))continue;
+// 		Const supplementNumber=nums[i]*2
+// 		Let left=i+1, right=nums.length-1
+// Const duplicate=binarySearch(nums,left,right,supplementNumber)
+// if(duplicate===-1)return []
+// set.add(duplicate)
+// result.push(nums[i])
+// 	}
+// }
+
+// Function binarySearch(nums:number[],left:number,right:number,k:number):number{
+// 	if(right<left)return -1
+// 	Const mid=Math.floor((left+right)/2)
+// if(nums[mid]===k)Return mid
+// }
+
+// Example:
+// Input: [2,1,2,4,4,8]
+// Output: [1,3,4]
+
+// 2,1
+// 2,4
+
+// 4,8
+
+// Org: [1,2,3] :[]
+
+// Input: Doubled Arr:  [1,2,4,3,6]
+// Output: Org
+// Not possible []
+// Org: []
+
+// Doubled: [1,2,2,4,3,6]
+
+// Org: [1,2,3]
+
+// Solution:
+
+// Input: [4,2,8,2,4,4]
+
+// You are given an integer array arr. You can choose a set of integers and remove all the occurrences of these integers in the array.
+// Return the minimum size of the set so that at least half of the integers of the array are removed.
+// Input: arr = [3,3,3,3,5,5,5,2,2,7]
+// Output: 2
+
+// Size <= arr.length/2
+
+function reduceArrayToHalf(nums: number[]): number {
+	nums.sort((a, b) => a - b);
+	let count = 0;
+	let i = 0;
+	while (i < nums.length) {
+		count++;
+		let j = i + 1;
+		while (j < nums.length && nums[j] === nums[i]) {
+			j++;
+		}
+		i = j;
+	}
+	return count;
+}
+
+console.log(reduceArrayToHalf([3, 3, 3, 3, 5, 5, 5, 2, 2, 7])); //2
+
+// Function occurrences(nums:number[]):number{
+// 	Const map=new Map<number,number>()
+// for(0;n-1;++i){
+// 		Const value=map.get(nums[i])??0
+// map.set(nums[i],value+1)_
+// }
+// Const freq=[]
+// for( const [key,value] of map){
+// 	freq.push(value)
+// }
+// countingSort(freq)
+// Let length=nums.length, total=0
+// For(n-1; 0 ;i–){
+// Const number=stack[i];
+// length=length-number
+// Total++
+// if(length<==nums.length/2)return total
+// }
+// Return -1
+// }
+
+// edge case: what happens when there are duplicates in counting sort
+// Function countingSort(nums:number[]):number[]{
+// 	Const max=Math.max(...nums)
+
+
