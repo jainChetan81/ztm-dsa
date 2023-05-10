@@ -1,4 +1,3 @@
-// @ts-expect-error duplication
 class ListNode {
 	val: number;
 	next: ListNode | null;
@@ -24,20 +23,23 @@ class Stack {
 		const newNode = new ListNode(value);
 		this.length++;
 		if (this.length === 0) {
-			this.top = newNode;
-			this.bottom = newNode;
-			return this;
+			this.top = this.bottom = newNode;
+			return newNode;
 		}
-		const top = this.top;
+		newNode.next = this.top;
 		this.top = newNode;
-		this.top.next = top;
-		return this;
+		return newNode;
 	}
 	pop() {
 		if (!this.top) return null;
-		this.top = this.top.next;
 		this.length--;
-		return this;
+		if (this.top === this.bottom) {
+			this.top = this.bottom = null;
+			return null;
+		}
+		const current = this.top;
+		this.top = current.next;
+		return this.top;
 	}
 }
 

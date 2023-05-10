@@ -44,11 +44,16 @@ class QueueLL {
 }
 
 const queueLL = new QueueLL();
-console.log(queueLL.enqueue("Joy"));
-console.log(queueLL.enqueue("Matt"));
-console.log(queueLL.enqueue("Pavel"));
-console.log(queueLL.enqueue("Samir"));
-console.log(queueLL.dequeue());
-console.log(queueLL.dequeue());
-console.log(queueLL.dequeue());
-console.log(queueLL.dequeue());
+queueLL.enqueue("Joy");
+queueLL.enqueue("Matt");
+console.log(queueLL.peek());
+queueLL.enqueue("Pavel");
+console.log(queueLL.peek());
+queueLL.enqueue("Samir");
+console.log(queueLL.peek());
+queueLL.dequeue();
+console.log(queueLL.peek());
+queueLL.dequeue();
+queueLL.dequeue();
+console.log(queueLL.peek());
+queueLL.dequeue();
