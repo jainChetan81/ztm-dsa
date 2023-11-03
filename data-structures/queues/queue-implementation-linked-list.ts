@@ -1,15 +1,15 @@
 // @ts-ignore
-class ListNode {
+class ListNodeLL {
 	val: string;
-	next: ListNode | null;
-	constructor(val?: string, next?: ListNode | null) {
+	next: ListNodeLL | null;
+	constructor(val?: string, next?: ListNodeLL | null) {
 		this.val = val === undefined ? "" : val;
 		this.next = next === undefined ? null : next;
 	}
 }
 class QueueLL {
-	first: ListNode | null;
-	last: ListNode | null;
+	first: ListNodeLL | null;
+	last: ListNodeLL | null;
 	length: number;
 	constructor() {
 		this.first = null;
@@ -20,7 +20,7 @@ class QueueLL {
 		return this.first;
 	}
 	enqueue(value: string) {
-		const newNode = new ListNode(value);
+		const newNode = new ListNodeLL(value);
 		if (!this.last || this.length === 0) {
 			this.first = newNode;
 			this.last = newNode;
