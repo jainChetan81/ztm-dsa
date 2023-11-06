@@ -35,6 +35,6 @@ export function maxDepthAfterSplit(seq: string): number[] {
 	return result;
 }
 // example 1
-console.log(maxDepthAfterSplit("(()())")); // [0,1,1,1,1,0]
+console.log(maxDepthAfterSplit("()()()")); // [0,1,1,1,1,0]
 // example 2
 console.log(maxDepthAfterSplit("()(())()")); // [0,0,0,1,1,0,1,1]
