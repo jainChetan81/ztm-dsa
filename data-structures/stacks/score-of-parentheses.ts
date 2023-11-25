@@ -23,11 +23,12 @@ function scoreOfParentheses(s: string): number {
 			stack.push(score);
 			score = 0;
 		} else {
-			score = stack.pop()! + Math.max(score * 2, 1);
+			const newScore = (stack.pop() ?? 0) + Math.max(2 * score, 1);
+			score = newScore;
 		}
 	}
 	return score;
 }
 console.log(scoreOfParentheses("()")); // 1
 console.log(scoreOfParentheses("(())")); // 2
-console.log(scoreOfParentheses("()()")); // 2
+console.log(scoreOfParentheses("((()))(())")); // 2
