@@ -19,23 +19,24 @@
 // - 4 is underlined in nums2 = [1,2,3,4]. There is no next greater element, so the answer is -1.
 function nextGreaterElement(nums1: number[], nums2: number[]): number[] {
 	for (let i = 0; i < nums1.length; i++) {
+		let flag = false;
 		let nextGreater = -1;
-		let found = false;
 		for (let j = 0; j < nums2.length; j++) {
-			if (nums1[i] === nums2[j] && !found) {
-				found = true;
+			if (nums1[i] === nums2[j] && !flag) {
+				flag = true;
 			}
-			if (found && nums2[j] > nums1[i]) {
-				nextGreater = j;
-				break;
+			if (flag) {
+				if (nums2[j] > nums1[i]) {
+					console.log(i, nums1[i], j, nums2[j]);
+					nextGreater = nums2[j];
+					break;
+				}
 			}
 		}
-		nums1[i] = nextGreater >= 0 ? nums2[nextGreater] : -1;
+		nums1[i] = nextGreater;
 	}
+
 	return nums1;
 }
-
-// Example 1
 console.log(nextGreaterElement([4, 1, 2], [1, 3, 4, 2])); // [-1,3,-1]
-// Example 2
 console.log(nextGreaterElement([2, 4], [1, 2, 3, 4])); // [3,-1]
