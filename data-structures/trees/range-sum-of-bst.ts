@@ -9,22 +9,12 @@
 // Input: root = [10,5,15,3,7,13,18,1,null,6], low = 6, high = 10
 // Output: 23
 // Explanation: Nodes 6, 7, and 10 are in the range [6, 10]. 6 + 7 + 10 = 23.
-class TreeNode {
-	val: number;
-	left: TreeNode | null;
-	right: TreeNode | null;
-	constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-		this.val = val === undefined ? 0 : val;
-		this.left = left === undefined ? null : left;
-		this.right = right === undefined ? null : right;
-	}
-}
-function rangeSumBST(root: TreeNode | null, low: number, high: number): number {
-	if (!root) return 0;
-	let sum = 0;
+
+function rangeSumBST(root: TreeNode | null, low: number, high: number, sum = 0): number {
+	if (!root) return sum;
 	if (root.val >= low && root.val <= high) sum += root.val;
-	if (root.val > low) sum += rangeSumBST(root.left, low, high);
-	if (root.val < high) sum += rangeSumBST(root.right, low, high);
+	if (root.left) sum = rangeSumBST(root.left, low, high, sum);
+	if (root.right) sum = rangeSumBST(root.right, low, high, sum);
 	return sum;
 }
 

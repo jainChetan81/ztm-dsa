@@ -13,29 +13,19 @@
 // Explanation: The values of the root, its left child, and its right child are 5, 3, and 1, respectively.
 // 5 is not equal to 3 + 1, so we return false.
 
-class TreeNode {
-	val: number;
-	left: TreeNode | null;
-	right: TreeNode | null;
-	constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-		this.val = val === undefined ? 0 : val;
-		this.left = left === undefined ? null : left;
-		this.right = right === undefined ? null : right;
-	}
-}
 function checkTree(root: TreeNode | null): boolean {
 	if (!root) return false;
 	const sum = (root?.left?.val ?? 0) + (root?.right?.val ?? 0);
 	return sum === root.val;
 }
 // example 1
-const root = new TreeNode(10);
-root.left = new TreeNode(4);
-root.right = new TreeNode(6);
-console.log(checkTree(root)); // true
+const root11 = new TreeNode(10);
+root11.left = new TreeNode(4);
+root11.right = new TreeNode(6);
+console.log(checkTree(root11)); // true
 
 // example 2
-const root2 = new TreeNode(5);
-root2.left = new TreeNode(3);
-root2.right = new TreeNode(1);
-console.log(checkTree(root2)); // false
+const root22 = new TreeNode(5);
+root22.left = new TreeNode(3);
+root22.right = new TreeNode(1);
+console.log(checkTree(root22)); // false

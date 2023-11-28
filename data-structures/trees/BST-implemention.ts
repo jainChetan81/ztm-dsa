@@ -1,6 +1,6 @@
-class Node {
-	right: Node | null;
-	left: Node | null;
+class TreeNode1 {
+	right: TreeNode1 | null;
+	left: TreeNode1 | null;
 	value: number;
 	constructor(value: number) {
 		this.value = value;
@@ -9,23 +9,22 @@ class Node {
 	}
 }
 
-class BinarySearchTree {
-	root: null | Node;
+class BinarySearchTree2 {
+	root: null | TreeNode1;
 	constructor() {
 		this.root = null;
 	}
-	insert(value: number): Node | null {
-		const newNode = new Node(value);
-		if (!this.root || isNaN(value)) {
-			this.root = newNode;
+	insert(value: number): TreeNode1 | null {
+		if (isNaN(value)) return null;
+		if (!this.root) {
+			this.root = new TreeNode1(value);
 			return this.root;
 		}
-		let currentNode = this.root;
-		// we have to traverse the tree until we find the root node
-		while (true) {
-			if (currentNode.value === value) return null;
+		let currentNode: TreeNode1 | null = this.root;
+		const newNode = new TreeNode1(value);
+		while (currentNode) {
+			if (value === currentNode.value) return null;
 			if (value < currentNode.value) {
-				// left
 				if (!currentNode.left) {
 					currentNode.left = newNode;
 					return newNode;
@@ -40,27 +39,22 @@ class BinarySearchTree {
 				currentNode = currentNode.right;
 			}
 		}
+		return null;
 	}
-	lookup(value: number): Node | null {
+	lookup(value: number): TreeNode1 | null {
 		if (!this.root || isNaN(value)) return null;
-		let currentNode = this.root;
-		while (true) {
-			if (currentNode.value === value) return currentNode;
-			if (value < currentNode.value) {
-				if (!currentNode.left) return null;
-				currentNode = currentNode.left;
-			}
-			if (value > currentNode.value) {
-				if (!currentNode.right) return null;
-				currentNode = currentNode.right;
-			}
+		let currentNode: TreeNode1 | null = this.root;
+		while (currentNode) {
+			if (value === currentNode.value) return currentNode;
+			if (value < currentNode.value) currentNode = currentNode.left;
+			else currentNode = currentNode.right;
 		}
+		return null;
 	}
 	remove(value: number) {
-		if (!this.root) {
-			return false;
-		}
-		let currentNode: Node | null = this.root;
+		if (!this.root) return false;
+
+		let currentNode: TreeNode1 | null = this.root;
 		let parentNode = null;
 		while (currentNode) {
 			if (value < currentNode.value) {
@@ -71,7 +65,6 @@ class BinarySearchTree {
 				currentNode = currentNode.right;
 			} else if (currentNode.value === value) {
 				//We have a match, get to work!
-
 				//Option 1: No right child:
 				if (currentNode.right === null) {
 					if (parentNode === null) {
@@ -134,23 +127,23 @@ class BinarySearchTree {
 	}
 }
 
-const tree = new BinarySearchTree();
-tree.insert(9);
-tree.insert(4);
-tree.insert(6);
-tree.insert(20);
-tree.insert(170);
-tree.insert(15);
-tree.insert(1);
-console.log(JSON.stringify(traverse(tree.root)));
-console.log(tree.lookup(15));
-console.log(tree.lookup(151));
+let tree2 = new BinarySearchTree2();
+tree2.insert(9);
+tree2.insert(4);
+tree2.insert(6);
+tree2.insert(20);
+tree2.insert(170);
+tree2.insert(15);
+tree2.insert(1);
+console.log(JSON.stringify(traverse(tree2.root)));
+console.log(tree2.lookup(15));
+console.log(tree2.lookup(151));
 console.log("------------");
-console.log(tree.remove(170));
+console.log(tree2.remove(170));
 
-function traverse(node: Node | null): Node | null {
+function traverse(node: TreeNode1 | null): TreeNode1 | null {
 	if (!node) return null;
-	const tree: Node = { value: node.value, left: null, right: null };
+	const tree: TreeNode1 = { value: node.value, left: null, right: null };
 	tree.left = node?.left === null ? null : traverse(node.left);
 	tree.right = node?.right === null ? null : traverse(node.right);
 	return tree;
