@@ -19,16 +19,16 @@ function rangeSumBST(root: TreeNode | null, low: number, high: number, sum = 0):
 }
 
 // example 1
-const root = new TreeNode(10);
-root.left = new TreeNode(5);
-root.right = new TreeNode(15);
-root.left.left = new TreeNode(3);
-root.left.right = new TreeNode(7);
-root.right.right = new TreeNode(18);
-console.log(rangeSumBST(root, 7, 15)); // 32
+const root111 = new TreeNode(10);
+root111.left = new TreeNode(5);
+root111.right = new TreeNode(15);
+root111.left.left = new TreeNode(3);
+root111.left.right = new TreeNode(7);
+root111.right.right = new TreeNode(18);
+console.log(rangeSumBST(root111, 7, 15)); // 32
 
 // example 2
-const root2 = new TreeNode(10);
+const root2111 = new TreeNode(10);
 root2.left = new TreeNode(5);
 root2.right = new TreeNode(15);
 root2.left.left = new TreeNode(3);

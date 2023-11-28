@@ -254,12 +254,12 @@ function spiralTree(root: Node): void {
 }
 
 const root = new Node(1);
-root.left = new Node(2);
-root.right = new Node(3);
-root.left.left = new Node(7);
-root.left.right = new Node(6);
-root.right.left = new Node(5);
-root.right.right = new Node(4);
+root111.left = new Node(2);
+root111.right = new Node(3);
+root111.left.left = new Node(7);
+root111.left.right = new Node(6);
+root111.right.left = new Node(5);
+root111.right.right = new Node(4);
 
 // spiralTree(root); // 1,2,3,4,5,6,7
 
@@ -523,5 +523,3 @@ console.log(reduceArrayToHalf([3, 3, 3, 3, 5, 5, 5, 2, 2, 7])); //2
 // edge case: what happens when there are duplicates in counting sort
 // Function countingSort(nums:number[]):number[]{
 // 	Const max=Math.max(...nums)
-
-
