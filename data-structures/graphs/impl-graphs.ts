@@ -26,6 +26,26 @@ class Graph {
 			console.log(node + "-->" + connections);
 		}
 	}
+	hasPath(source: string, destination: string): boolean {
+		const visited = new Set<string>();
+		return this.hasPathHelper(source, destination, visited);
+	}
+	hasPathHelper(source: string, destination: string, visited: Set<string>): boolean {
+		if (visited.has(source)) {
+			return false;
+		}
+		visited.add(source);
+		if (source === destination) {
+			return true;
+		}
+		const neighbors = this.adjacentList[source];
+		for (let neighbor of neighbors) {
+			if (this.hasPathHelper(neighbor, destination, visited)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 const myGraph = new Graph();

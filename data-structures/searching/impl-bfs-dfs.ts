@@ -9,10 +9,10 @@
 // if the solutions are frequent but very deep in tree
 //? determining whether a path exists between two nodes or if the node exists
 // time complexity O(n)
-// Space Complexity O(h), h is the max depth of the tree   
-class Node {
-	right: Node | null;
-	left: Node | null;
+// Space Complexity O(h), h is the max depth of the tree
+class NodeBfsDfs {
+	right: NodeBfsDfs | null;
+	left: NodeBfsDfs | null;
 	value: number;
 	constructor(value: number) {
 		this.value = value;
@@ -22,12 +22,12 @@ class Node {
 }
 
 class BinarySearchTree {
-	root: null | Node;
+	root: null | NodeBfsDfs;
 	constructor() {
 		this.root = null;
 	}
-	insert(value: number): Node | null {
-		const newNode = new Node(value);
+	insert(value: number): NodeBfsDfs | null {
+		const newNode = new NodeBfsDfs(value);
 		if (!this.root || isNaN(value)) {
 			this.root = newNode;
 			return this.root;
@@ -53,7 +53,7 @@ class BinarySearchTree {
 			}
 		}
 	}
-	lookup(value: number): Node | null {
+	lookup(value: number): NodeBfsDfs | null {
 		if (!this.root || isNaN(value)) return null;
 		let currentNode = this.root;
 		while (true) {
@@ -68,24 +68,24 @@ class BinarySearchTree {
 			}
 		}
 	}
-	breadthFirstSearch(): Node[] {
+	breadthFirstSearch(): NodeBfsDfs[] {
 		if (!this.root) return [];
 		let currentNode = this.root;
-		const list: Node[] = [];
+		const list: NodeBfsDfs[] = [];
 		const queue = [];
 		queue.push(currentNode);
 		while (queue.length > 0) {
-			currentNode = queue.shift() as Node;
+			currentNode = queue.shift() as NodeBfsDfs;
 			list.push(currentNode);
 			if (currentNode.left) queue.push(currentNode.left);
 			if (currentNode.right) queue.push(currentNode.right);
 		}
 		return list;
 	}
-	breadthFirstSearchRecursive(queue = [this.root!], list: Node[] = []): Node[] {
+	breadthFirstSearchRecursive(queue = [this.root!], list: NodeBfsDfs[] = []): NodeBfsDfs[] {
 		if (!this.root) return [];
 		if (!queue.length) return list;
-		const currentNode = queue.shift() as Node;
+		const currentNode = queue.shift() as NodeBfsDfs;
 		list.push(currentNode);
 		if (currentNode.left) queue.push(currentNode.left);
 		if (currentNode.right) queue.push(currentNode.right);
@@ -104,21 +104,21 @@ class BinarySearchTree {
 		return traversePostOrder(this.root, []);
 	}
 }
-function traverseInOrder(node: Node | null, list: Node[]) {
+function traverseInOrder(node: NodeBfsDfs | null, list: NodeBfsDfs[]) {
 	if (!node) return list;
 	if (node.left) traverseInOrder(node.left, list);
 	list.push(node);
 	if (node.right) traverseInOrder(node.right, list);
 	return list;
 }
-function traversePreOrder(node: Node | null, list: Node[]) {
+function traversePreOrder(node: NodeBfsDfs | null, list: NodeBfsDfs[]) {
 	if (!node) return list;
 	list.push(node);
 	if (node.left) traversePreOrder(node.left, list);
 	if (node.right) traversePreOrder(node.right, list);
 	return list;
 }
-function traversePostOrder(node: Node | null, list: Node[]) {
+function traversePostOrder(node: NodeBfsDfs | null, list: NodeBfsDfs[]) {
 	if (!node) return list;
 	if (node.left) traversePostOrder(node.left, list);
 	if (node.right) traversePostOrder(node.right, list);
@@ -134,15 +134,15 @@ tree.insert(20);
 tree.insert(170);
 tree.insert(15);
 tree.insert(1);
-console.log(JSON.stringify(traverse(tree.root)));
+console.log(JSON.stringify(traverseBfsDfs1(tree.root)));
 console.log(tree.lookup(15));
 console.log(tree.lookup(151));
 console.log("------------");
 
-function traverse(node: Node | null): Node | null {
+function traverseBfsDfs1(node: NodeBfsDfs | null): NodeBfsDfs | null {
 	if (!node) return null;
-	const tree: Node = { value: node.value, left: null, right: null };
-	tree.left = node?.left === null ? null : traverse(node.left);
-	tree.right = node?.right === null ? null : traverse(node.right);
+	const tree: NodeBfsDfs = { value: node.value, left: null, right: null };
+	tree.left = node?.left === null ? null : traverseBfsDfs1(node.left);
+	tree.right = node?.right === null ? null : traverseBfsDfs1(node.right);
 	return tree;
 }
