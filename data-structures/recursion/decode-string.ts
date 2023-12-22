@@ -14,41 +14,42 @@
 // Example 3:
 // Input: s = "2[abc]3[cd]ef"
 // Output: "abcabccdcdcdef"
-function decodeString(s: string, num = 1): string {
-	const stack = [];
-	const indexArr: number[] = [];
-	let newStr = "";
-	let multi = 0;
-	const sArr = s.split("");
-	for (let i = 0; i < sArr.length; i++) {
-		if (!isNaN(+sArr[i])) {
-			multi = +sArr[i];
-			stack.push(multi);
-		}
-		if (sArr[i] === "[") {
-			stack.push(sArr[i]);
-			indexArr.push(i);
-		}
-		if (stack.length === 0) newStr += sArr[i];
-		if (sArr[i] === "]") {
-			console.log(newStr, stack, indexArr);
-			stack.pop();
-			const num = stack.pop() as number;
-			const numberIndex = indexArr.pop()!;
-			newStr += multiplyString(sArr.slice(numberIndex + 1, i).join(""), num);
-			console.log("newStr", newStr);
-		}
-	}
-	return newStr;
-}
+const isNumber = (s: string): boolean => !isNaN(Number(s));
 function multiplyString(str: string, n: number) {
-	// console.log(`${str.length}: multiplyString=>`, str, n);
 	let newStr = "";
 	for (let i = 0; i < n; i++) {
 		newStr += str;
 	}
 	return newStr;
 }
-// console.log(decodeString("3[a]2[cb]")); //aaabcbc
+function decodeString(s: string): string {
+	let newStr = "";
+	for (let i = 0; i < s.length; i++) {
+		if (isNumber(s[i])) {
+			// in case there are more than 1 digit
+			let k = i;
+			while (isNumber(s[k])) {
+				k++;
+			}
+			const num = Number(s.slice(i, k));
+			let bracketCount = 1;
+			let j = k + 1;
+			while (bracketCount > 0 && s[j]) {
+				j++;
+				if (s[j] === "[") bracketCount++;
+				if (s[j] === "]") bracketCount--;
+			}
+			const subStr = s.slice(k + 1, j);
+			newStr += multiplyString(decodeString(subStr), num);
+			i = j;
+			continue;
+		}
+		newStr += s[i];
+	}
+	return newStr;
+}
+
+console.log(decodeString("3[a]2[bc]")); //aaabcbc
 console.log(decodeString("3[a2[c]]")); //accaccacc
-// console.log(decodeString("2[abc]3[cd]ef")); //abcabccdcdcdef
+console.log(decodeString("100[leetcode]")); //accaccacc
+console.log(decodeString("2[abc]3[cd]ef")); //abcabccdcdcdef
