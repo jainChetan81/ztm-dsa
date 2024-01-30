@@ -1,4 +1,4 @@
-const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+const numbersBubble = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
 function bubbleSort(array: number[]) {
 	for (let i = 0; i < array.length; i++) {
@@ -10,8 +10,8 @@ function bubbleSort(array: number[]) {
 	}
 }
 
-bubbleSort(numbers);
-console.log(numbers);
+bubbleSort(numbersBubble);
+console.log(numbersBubble);
 // used when list is almost sorted
 // O(n) when list is almost sorted
 // O(n*n) when list is not sorted
