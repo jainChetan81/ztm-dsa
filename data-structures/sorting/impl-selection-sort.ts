@@ -1,12 +1,13 @@
-const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+const numbersSelection = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
 function selectionSort(array: number[]) {
+	if (!array.length) return;
 	for (let i = 0; i < array.length; i++) {
-		let min = array[i],
+		let small = array[i],
 			minIndex = i;
 		for (let j = i + 1; j < array.length; j++) {
-			if (array[j] < min) {
-				min = array[j];
+			if (array[j] < small) {
+				small = array[j];
 				minIndex = j;
 			}
 		}
@@ -14,7 +15,7 @@ function selectionSort(array: number[]) {
 	}
 }
 
-selectionSort(numbers);
-console.log(numbers);
+selectionSort(numbersSelection);
+console.log(numbersSelection);
 
-// O(n*n) when iin all cases
+// O(n*n) when in all cases
