@@ -1,30 +1,23 @@
-const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+const numbersIns = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 const numbers2 = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
-export function insertionSortNew(array: number[]) {
-	for (let i = 0; i < array.length; i++) {
-		for (let j = 0; j < i; j++) {
-			if (array[j] > array[i]) {
-				[array[j], array[i]] = [array[i], array[j]];
-			}
-		}
-	}
-}
+export function insertionSortNew(array: number[]) {}
 
 export function insertionSort(array: number[]) {
-	for (let i = 1; i < array.length; i++) {
-		const curr = array[i];
-		let j = i - 1;
-		while (j >= 0 && curr < array[j]) {
-			array[j + 1] = array[j];
-			j--;
+	if (!array.length) return; 
+	for (let j = 1; j < array.length; j++) {
+		let i = j - 1;
+		const current = array[j];
+		while (i >= 0 && current < array[i]) {
+			array[i + 1] = array[i];
+			i--;
 		}
-		array[j + 1] = curr;
+		array[i + 1] = current;
 	}
 }
 
-insertionSort(numbers);
-insertionSortNew(numbers2);
+console.log(insertionSort(numbersIns));
+// insertionSortNew(numbers2);
 // console.log(numbers);
 // console.log(numbers2);
 
