@@ -1,39 +1,36 @@
-const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+const numbersMerge = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
-function mergeSort(array: number[]): number[] {
-	if (array.length === 1) {
-		return array;
-	}
-	// Split Array in into right and left
-	const left = array.slice(0, Math.floor(array.length / 2));
-	const right = array.slice(Math.floor(array.length / 2));
-
-	return merge(mergeSort(left), mergeSort(right));
+function mergeSort(arr: number[]): number[] {
+	if (arr.length <= 1) return arr;
+	const middie = Math.floor(arr.length / 2);
+	const left = arr.slice(0, middie);
+	const right = arr.slice(middie);
+	return mergeImpl(mergeSort(left), mergeSort(right));
 }
 
-function merge(left: number[], right: number[]): number[] {
-	const result: number[] = [];
-	let i = 0,
-		j = 0;
+function mergeImpl(left: number[], right: number[]): number[] {
+	const res: number[] = [];
+	let [i, j] = [0, 0];
 	while (i < left.length && j < right.length) {
-		if (left[i] <= right[j]) {
-			result.push(left[i]);
+		if (left[i] < right[j]) {
+			res.push(left[i]);
 			i++;
-		} else if (left[i] > right[j]) {
-			result.push(right[j]);
+		}
+		if (right[j] < left[i]) {
+			res.push(right[j]);
 			j++;
 		}
 	}
-	for (; i < left.length; ++i) {
-		result.push(left[i]);
+	for (; i < left.length; i++) {
+		res.push(left[i]);
 	}
-	for (; j < right.length; ++j) {
-		result.push(right[j]);
+	for (; j < right.length; j++) {
+		res.push(right[j]);
 	}
-	return result;
+	return res;
 }
 
-const answer = mergeSort(numbers);
+const answer = mergeSort(numbersMerge);
 console.log(answer);
 
 // time complexity of merge sort
