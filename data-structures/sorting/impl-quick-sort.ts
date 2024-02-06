@@ -1,7 +1,5 @@
 const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
-type A = number[];
-type N = number;
-function quickSort(array: A, left: N = 0, right: N = array.length - 1) {
+function quickSort(array: number[], left = 0, right = array.length - 1) {
 	let pivot;
 	let partitionIndex;
 
@@ -33,5 +31,5 @@ function swap(array: A, firstIndex: N, secondIndex: N) {
 }
 
 //Select first and last index as 2nd and 3rd parameters
-quickSort(numbers);
-console.log(numbers);
+quickSort(numbersBubble);
+console.log(numbersBubble);
