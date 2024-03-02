@@ -1,19 +1,16 @@
 // implement binary search on a sorted array
-//
-function binarySearch(arr: number[], target: number): number {
-	let start = 0;
-	let end = arr.length - 1;
-	while (start <= end) {
-		const mid = Math.floor((start + end) / 2);
-		if (arr[mid] === target) {
-			return mid;
-		} else if (arr[mid] > target) {
-			end = mid - 1;
-		} else {
-			start = mid + 1;
-		}
-	}
-	return -1;
+export default function binarySearch(
+  arr: Array<number>,
+  target: number,
+  left = 0,
+  right = arr.length,
+): number {
+  if (!arr.length) return -1;
+  const mid = Math.floor((left + right) / 2);
+  if (arr[mid] === target) return mid;
+  if (left >= right) return -1;
+  if (arr[mid] > target) return binarySearch(arr, target, left, mid);
+  return binarySearch(arr, target, mid + 1, right);
 }
 // example 1
 console.log(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)); // 4

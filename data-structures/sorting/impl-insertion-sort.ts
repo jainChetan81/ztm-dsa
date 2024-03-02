@@ -4,16 +4,16 @@ const numbers2 = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 export function insertionSortNew(array: number[]) {}
 
 export function insertionSort(array: number[]) {
-	if (!array.length) return; 
-	for (let j = 1; j < array.length; j++) {
-		let i = j - 1;
-		const current = array[j];
-		while (i >= 0 && current < array[i]) {
-			array[i + 1] = array[i];
-			i--;
-		}
-		array[i + 1] = current;
-	}
+  if (!array.length) return [];
+  for (let j = 1; j < array.length; j++) {
+    let i = j - 1;
+    const current = array[j];
+    while (i >= 0 && current < array[i]) {
+      array[i + 1] = array[i];
+      i--;
+    }
+    array[i + 1] = current;
+  }
 }
 
 console.log(insertionSort(numbersIns));
