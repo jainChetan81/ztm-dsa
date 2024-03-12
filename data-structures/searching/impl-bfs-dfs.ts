@@ -22,86 +22,44 @@ class NodeBfsDfs {
 }
 
 class BinarySearchTree {
-  root: null | NodeBfsDfs;
-  constructor() {
-    this.root = null;
-  }
-  insert(value: number) {
-    const newNode = new NodeBfsDfs(value);
-    if (root === null) {
-      this.root = newNode;
-      return this.root;
-    }
-    let temp = this.root;
-    while (temp?.value) {
-      if (temp.value === value) return null;
+	root: null | NodeBfsDfs;
+	constructor() {
+		this.root = null;
+	}
+	insert(value: number) {
+		const newNode = new NodeBfsDfs(value);
+		if (root === null) {
+			this.root = newNode;
+			return this.root;
+		}
+		let temp = this.root;
+		while (temp?.value) {
+			if (temp.value === value) return null;
 
-      if (value < temp?.value) {
-        if (temp.left === null) {
-          temp.left = newNode;
-          return newNode;
-        } else temp = temp.left;
-      }
-      if (value >= temp.value) {
-        if (temp.right === null) {
-          temp.right = newNode;
-          return newNode;
-        } else temp = temp.right;
-      }
-    }
-    return newNode;
-  }
-  lookup(value: number) {
-    let temp = this.root;
-    while (temp) {
-      if (value === temp.value) return temp;
-      if (value < temp.value) temp = temp.left;
-      else temp = temp.right;
-    }
-    return null;
-  }
-  breadthFirstSearch() {
-    let temp = this.root;
-    let list: number[] = [];
-    let queue: NodeBfsDfs[] = [];
-    if (temp) queue.push(temp);
-    while (queue.length > 0) {
-      temp = queue.shift()!;
-      list.push(temp.value);
-      if (temp.left) queue.push(temp.left);
-      if (temp.right) queue.push(temp.right);
-    }
-    return list;
-  }
-  breadthFirstSearchRecursive(queue: NodeBfsDfs[], list: number[]): number[] {
-    if (queue.length === 0) return list;
-    const temp = queue.shift()!;
-    list.push(temp.value);
-    if (temp.left) queue.push(temp.left);
-    if (temp.right) queue.push(temp.right);
-    return this.breadthFirstSearchRecursive(queue, list);
-  }
-  DFSPreOrder(temp = this.root, list: number[] = []) {
-    if (!temp) return list;
-    list.push(temp.value);
-    if (temp.left) this.DFSPreOrder(temp.left, list);
-    if (temp.right) this.DFSPreOrder(temp.right, list);
-    return list;
-  }
-  DFSPostOrder(temp = this.root, list: number[] = []) {
-    if (!temp) return list;
-    if (temp.left) this.DFSPostOrder(temp.left, list);
-    if (temp.right) this.DFSPostOrder(temp.right, list);
-    list.push(temp.value);
-    return list;
-  }
-  DFSInOrder(temp = this.root, list: number[] = []) {
-    if (!temp) return list;
-    if (temp.left) this.DFSInOrder(temp.left, list);
-    list.push(temp.value);
-    if (temp.right) this.DFSInOrder(temp.right, list);
-    return list;
-  }
+			if (value < temp?.value) {
+				if (temp.left === null) {
+					temp.left = newNode;
+					return newNode;
+				} else temp = temp.left;
+			}
+			if (value >= temp.value) {
+				if (temp.right === null) {
+					temp.right = newNode;
+					return newNode;
+				} else temp = temp.right;
+			}
+		}
+		return newNode;
+	}
+	lookup(value: number) {
+		let temp = this.root;
+		while (temp) {
+			if (value === temp.value) return temp;
+			if (value < temp.value) temp = temp.left;
+			else temp = temp.right;
+		}
+		return null;
+	}
 }
 
 const tree = new BinarySearchTree();
