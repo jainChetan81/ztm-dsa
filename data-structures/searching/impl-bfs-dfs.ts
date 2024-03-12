@@ -11,119 +11,97 @@
 // time complexity O(n)
 // Space Complexity O(h), h is the max depth of the tree
 class NodeBfsDfs {
-	right: NodeBfsDfs | null;
-	left: NodeBfsDfs | null;
-	value: number;
-	constructor(value: number) {
-		this.value = value;
-		this.right = null;
-		this.left = null;
-	}
+  right: NodeBfsDfs | null;
+  left: NodeBfsDfs | null;
+  value: number;
+  constructor(value: number) {
+    this.value = value;
+    this.right = null;
+    this.left = null;
+  }
 }
 
 class BinarySearchTree {
-	root: null | NodeBfsDfs;
-	constructor() {
-		this.root = null;
-	}
-	insert(value: number): NodeBfsDfs | null {
-		const newNode = new NodeBfsDfs(value);
-		if (!this.root || isNaN(value)) {
-			this.root = newNode;
-			return this.root;
-		}
-		let currentNode = this.root;
-		// we have to traverse the tree until we find the root node
-		while (true) {
-			if (currentNode.value === value) return null;
-			if (value < currentNode.value) {
-				// left
-				if (!currentNode.left) {
-					currentNode.left = newNode;
-					return newNode;
-				}
-				currentNode = currentNode.left;
-			}
-			if (value > currentNode.value) {
-				if (!currentNode.right) {
-					currentNode.right = newNode;
-					return newNode;
-				}
-				currentNode = currentNode.right;
-			}
-		}
-	}
-	lookup(value: number): NodeBfsDfs | null {
-		if (!this.root || isNaN(value)) return null;
-		let currentNode = this.root;
-		while (true) {
-			if (currentNode.value === value) return currentNode;
-			if (value < currentNode.value) {
-				if (!currentNode.left) return null;
-				currentNode = currentNode.left;
-			}
-			if (value > currentNode.value) {
-				if (!currentNode.right) return null;
-				currentNode = currentNode.right;
-			}
-		}
-	}
-	breadthFirstSearch(): NodeBfsDfs[] {
-		if (!this.root) return [];
-		let currentNode = this.root;
-		const list: NodeBfsDfs[] = [];
-		const queue = [];
-		queue.push(currentNode);
-		while (queue.length > 0) {
-			currentNode = queue.shift() as NodeBfsDfs;
-			list.push(currentNode);
-			if (currentNode.left) queue.push(currentNode.left);
-			if (currentNode.right) queue.push(currentNode.right);
-		}
-		return list;
-	}
-	breadthFirstSearchRecursive(queue = [this.root!], list: NodeBfsDfs[] = []): NodeBfsDfs[] {
-		if (!this.root) return [];
-		if (!queue.length) return list;
-		const currentNode = queue.shift() as NodeBfsDfs;
-		list.push(currentNode);
-		if (currentNode.left) queue.push(currentNode.left);
-		if (currentNode.right) queue.push(currentNode.right);
-		return this.breadthFirstSearchRecursive(queue, list);
-	}
-	DFSInOrder() {
-		if (!this.root) return [];
-		return traverseInOrder(this.root, []);
-	}
-	DFSPreOrder() {
-		if (!this.root) return [];
-		return traversePreOrder(this.root, []);
-	}
-	DFSPostOrder() {
-		if (!this.root) return [];
-		return traversePostOrder(this.root, []);
-	}
-}
-function traverseInOrder(node: NodeBfsDfs | null, list: NodeBfsDfs[]) {
-	if (!node) return list;
-	if (node.left) traverseInOrder(node.left, list);
-	list.push(node);
-	if (node.right) traverseInOrder(node.right, list);
-	return list;
-}
-function traversePreOrder(node: NodeBfsDfs | null, list: NodeBfsDfs[]) {
-	if (!node) return list;
-	list.push(node);
-	if (node.left) traversePreOrder(node.left, list);
-	if (node.right) traversePreOrder(node.right, list);
-	return list;
-}
-function traversePostOrder(node: NodeBfsDfs | null, list: NodeBfsDfs[]) {
-	if (!node) return list;
-	if (node.left) traversePostOrder(node.left, list);
-	if (node.right) traversePostOrder(node.right, list);
-	list.push(node);
-	return list;
+  root: null | NodeBfsDfs;
+  constructor() {
+    this.root = null;
+  }
+  insert(value: number) {
+    const newNode = new NodeBfsDfs(value);
+    if (root === null) {
+      this.root = newNode;
+      return this.root;
+    }
+    let temp = this.root;
+    while (temp?.value) {
+      if (temp.value === value) return null;
+
+      if (value < temp?.value) {
+        if (temp.left === null) {
+          temp.left = newNode;
+          return newNode;
+        } else temp = temp.left;
+      }
+      if (value >= temp.value) {
+        if (temp.right === null) {
+          temp.right = newNode;
+          return newNode;
+        } else temp = temp.right;
+      }
+    }
+    return newNode;
+  }
+  lookup(value: number) {
+    let temp = this.root;
+    while (temp) {
+      if (value === temp.value) return temp;
+      if (value < temp.value) temp = temp.left;
+      else temp = temp.right;
+    }
+    return null;
+  }
+  breadthFirstSearch() {
+    let temp = this.root;
+    let list: number[] = [];
+    let queue: NodeBfsDfs[] = [];
+    if (temp) queue.push(temp);
+    while (queue.length > 0) {
+      temp = queue.shift()!;
+      list.push(temp.value);
+      if (temp.left) queue.push(temp.left);
+      if (temp.right) queue.push(temp.right);
+    }
+    return list;
+  }
+  breadthFirstSearchRecursive(queue: NodeBfsDfs[], list: number[]): number[] {
+    if (queue.length === 0) return list;
+    const temp = queue.shift()!;
+    list.push(temp.value);
+    if (temp.left) queue.push(temp.left);
+    if (temp.right) queue.push(temp.right);
+    return this.breadthFirstSearchRecursive(queue, list);
+  }
+  DFSPreOrder(temp = this.root, list: number[] = []) {
+    if (!temp) return list;
+    list.push(temp.value);
+    if (temp.left) this.DFSPreOrder(temp.left, list);
+    if (temp.right) this.DFSPreOrder(temp.right, list);
+    return list;
+  }
+  DFSPostOrder(temp = this.root, list: number[] = []) {
+    if (!temp) return list;
+    if (temp.left) this.DFSPostOrder(temp.left, list);
+    if (temp.right) this.DFSPostOrder(temp.right, list);
+    list.push(temp.value);
+    return list;
+  }
+  DFSInOrder(temp = this.root, list: number[] = []) {
+    if (!temp) return list;
+    if (temp.left) this.DFSInOrder(temp.left, list);
+    list.push(temp.value);
+    if (temp.right) this.DFSInOrder(temp.right, list);
+    return list;
+  }
 }
 
 const tree = new BinarySearchTree();
@@ -140,9 +118,9 @@ console.log(tree.lookup(151));
 console.log("------------");
 
 function traverseBfsDfs1(node: NodeBfsDfs | null): NodeBfsDfs | null {
-	if (!node) return null;
-	const tree: NodeBfsDfs = { value: node.value, left: null, right: null };
-	tree.left = node?.left === null ? null : traverseBfsDfs1(node.left);
-	tree.right = node?.right === null ? null : traverseBfsDfs1(node.right);
-	return tree;
+  if (!node) return null;
+  const tree: NodeBfsDfs = { value: node.value, left: null, right: null };
+  tree.left = node?.left === null ? null : traverseBfsDfs1(node.left);
+  tree.right = node?.right === null ? null : traverseBfsDfs1(node.right);
+  return tree;
 }

@@ -12,7 +12,7 @@ function quickSort(array: number[], left = 0, right = array.length - 1) {
 	return array;
 }
 
-function partition(array: A, pivot: N, left: N, right: N) {
+function partition(array: number[], pivot: number, left: number, right: number) {
 	const pivotValue = array[pivot];
 	let partitionIndex = left;
 
