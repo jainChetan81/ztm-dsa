@@ -1,41 +1,3 @@
-// *****************QUESTION 2*************
-const obj = {
-	a: {
-		b: (a: number, b: number, c: number) => a + b + c,
-		c: (a: number, b: number, c: number) => a + b - c
-	},
-	d: (a: number, b: number, c: number) => a - b - c
-};
-
-// Create a function
-function updateData<T extends typeof obj>(obj: T) {
-	const object = { ...obj };
-	return (a: number, b: number, c: number) => {
-		for (let key in object) {
-			if (typeof object[key] === "function") {
-				// @ts-ignore
-				object[key] = object[key]!(a, b, c);
-			} else {
-				// @ts-ignore
-				object[key] = updateData(object[key])(a, b, c);
-			}
-		}
-		return object;
-	};
-}
-
-// console.log(updateData(obj)(1, 1, 1)); //{
-// 	a : {
-// 		b : 3,
-// 		c : 1
-// 		}
-// 		d: -1
-// },
-
-// return the missing number from 2 arrays
-// [1,2,3,4,5,6,7,8,9,10] [1,2,3,4,5,6,8,9,10]
-// return 7
-
 function returnMissingNumber(arr1: number[], arr2: number[]): number {
 	let missingNumber = 0;
 	for (let i = 0; i < arr1.length; i++) {
@@ -46,24 +8,6 @@ function returnMissingNumber(arr1: number[], arr2: number[]): number {
 	}
 	return missingNumber;
 }
-
-// console.log(returnMissingNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])); // 7
-const arrFlat = [[1, 2], [[3, 4]], [5]];
-function flattenArray(arr: number[] | number[][], stack: number[] = []): number[] {
-	console.log(arr);
-	for (let i = 0; i < arr.length; i++) {
-		if (Array.isArray(arr[i])) {
-			flattenArray(arr[i] as number[], stack);
-		}
-		if (!Array.isArray(arr[i]) && typeof arr[i] === "number") {
-			stack.push(arr[i] as number);
-		}
-	}
-	console.log("stack", stack);
-	return stack;
-}
-// console.log(flattenArray(arrFlat)); //Output: [1,2,3,4,5])
-
 // Implement curriedSum such that all invocations to cs should return answer as 9
 // Gave a hint: fn.length gives no of arguments that function takes . eg: in our case add.length = 3
 function curriedSum(...a: number[]) {
@@ -90,16 +34,6 @@ function curriedSum(...a: number[]) {
 // curriedSum(2, 3, 4);
 // curriedSum(2, 3)(4);
 
-//find missing number in array
-// console.log("====================== missingNumbers ");
-function missingNumbers(arr: number[]): number {
-	let totalSum = ((arr.length + 1) * (arr.length + 2)) / 2;
-	for (let i = 0; i < arr.length; i++) {
-		totalSum -= arr[i];
-	}
-	return totalSum;
-}
-// console.log(missingNumbers([1, 4, 3, 6, 2])); //5
 function twoMissingNumbers(arr: number[]): [number, number] {
 	let totalSum = ((arr.length + 2) * (arr.length + 3)) / 2;
 	let totalMultiplication = 1;
@@ -125,12 +59,7 @@ function twoMissingNumbers(arr: number[]): [number, number] {
 }
 // console.log(twoMissingNumbers([1, 4, 6, 2])); //[3,5]
 
-// Sort an array of 0s, 1s, and 2s using the Pointer Approach:
 // Given an array of size N containing only 0s, 1s, and 2s; sort the array in ascending order.
-// Input: {0, 1, 2, 0, 1, 2}
-// Output: {0, 0, 1, 1, 2, 2}
-// Input: {0, 2, 1, 2, 0}
-// Output: {0, 0, 1, 2, 2}
 function sortArray(arr: number[]): number[] {
 	let low = 0,
 		mid = 0,
@@ -149,15 +78,10 @@ function sortArray(arr: number[]): number[] {
 	}
 	return arr;
 }
-// console.log("=========== SORT ARRAY ===========");
-
-// example 1
 // console.log(sortArray([0, 1, 2, 0, 1, 2])); //[0, 0, 1, 1, 2, 2]
-// example 2
 // console.log(sortArray([0, 2, 1, 2, 0])); //[0, 0, 1, 2, 2]
 
 //Given a string, reverse only the alphabets keeping rest of the character at the same place
-
 function reverseString(str: string): string {
 	const stack = [];
 	for (let i = 0; i < str.length; i++) {
@@ -174,33 +98,8 @@ function reverseString(str: string): string {
 	return str;
 }
 // console.log("=========== REVERSE STRING ===========");
-
 // console.log(reverseString("a,b$c")); // c,b$a
 // console.log(reverseString("Ab,c,de!$")); // ed,c,bA!$
-
-// write a function to iterate through json and print all values, that JSON could have obj, array, string or number  like [[[[{a:{b:c:1}}}]]],2,3], {a:1,b:{c:2},d:[1,2]}
-// console.log("=========== ITERATE JSON ===========");
-
-function iterateJson(json: any): void {
-	// console.log("=========== ===========,", json);
-	if (Array.isArray(json)) {
-		for (let i = 0; i < json.length; i++) {
-			iterateJson(json[i]);
-		}
-	}
-	if (!Array.isArray(json) && typeof json === "object") {
-		for (const key in json) {
-			iterateJson(json[key]);
-		}
-	}
-	if (["number", "string", "boolean"].includes(typeof json)) {
-		console.log(json);
-	}
-}
-
-// iterateJson([[[[{ a: { b: { c: 1 } } }]]], 2, 3]); // 1,2,3
-// iterateJson({ a: 3, b: { c: 5 }, d: [1, 2] }); // 1,2,1,2
-// iterateJson([1, 2, 3]); // 1,2,1,2
 
 // binary tree, print all nodes in a spiral
 // Given a binary tree, print nodes in spiral order. For below tree, output should be 1, 2, 3, 4, 5, 6, 7.
@@ -260,22 +159,6 @@ root111.left.left = new Node(7);
 root111.left.right = new Node(6);
 root111.right.left = new Node(5);
 root111.right.right = new Node(4);
-
-// spiralTree(root); // 1,2,3,4,5,6,7
-
-// Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8,]     , X = 3
-// Output: [3, 2, 1, 6, 5, 4,  8, 7]
-// Stack[1,2,3], i =
-
-// Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]   ,  X = 5
-// Output:  [5, 4, 3, 2, 1, 8, 7, 6]
-
-// Input:  arr = [1, 2, 3, 4, 5, 6]   , X = 1
-// Output:  [1, 2, 3, 4, 5, 6]
-
-// Input:  arr = [1, 2, 3, 4, 5, 6, 7, 8]  ,  X = 10
-// Output:  [8, 7, 6, 5, 4, 3, 2, 1]
-
 // LRU Caching Least Recently Used
 
 // Input
@@ -430,50 +313,6 @@ function changeArray(num: number[]) {
 	}
 	return result;
 }
-// Function findDuplicates(nums:number[]):number[] {
-// 	nums.sort((a,b)=>a-b)
-// Const result:number[]=[]
-// Const set=new Set<number>()
-// 	for( i=0;i<nums.length-1;++i){
-//             		if(set.has(i))continue;
-// 		Const supplementNumber=nums[i]*2
-// 		Let left=i+1, right=nums.length-1
-// Const duplicate=binarySearch(nums,left,right,supplementNumber)
-// if(duplicate===-1)return []
-// set.add(duplicate)
-// result.push(nums[i])
-// 	}
-// }
-
-// Function binarySearch(nums:number[],left:number,right:number,k:number):number{
-// 	if(right<left)return -1
-// 	Const mid=Math.floor((left+right)/2)
-// if(nums[mid]===k)Return mid
-// }
-
-// Example:
-// Input: [2,1,2,4,4,8]
-// Output: [1,3,4]
-
-// 2,1
-// 2,4
-
-// 4,8
-
-// Org: [1,2,3] :[]
-
-// Input: Doubled Arr:  [1,2,4,3,6]
-// Output: Org
-// Not possible []
-// Org: []
-
-// Doubled: [1,2,2,4,3,6]
-
-// Org: [1,2,3]
-
-// Solution:
-
-// Input: [4,2,8,2,4,4]
 
 // You are given an integer array arr. You can choose a set of integers and remove all the occurrences of these integers in the array.
 // Return the minimum size of the set so that at least half of the integers of the array are removed.
