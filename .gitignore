@@ -2,3 +2,5 @@
 .vscode
 bun.lockb
 node_modules
+advent_2024/node_modules
+advent_2024/bun.lockb
