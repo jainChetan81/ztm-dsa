@@ -19,7 +19,7 @@ function debouncHandle(fn: Function, delay: number) {
 	};
 }
 
-function throttleHandle(fn: Function, delay: number) {
+function throttleHandler(fn: Function, delay: number) {
 	let lastRun = 0;
 	return (...args: any[]) => {
 		const now = new Date().getTime();

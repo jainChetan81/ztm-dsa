@@ -70,12 +70,12 @@ async function sleep(millis: number): Promise<void> {
 }
 
 function createResilientAPI(apiFunction: typeof unreliableAPI, maxFailures = 3, resetTimeout = 5000) {
-	return async function wrapper(...args: any[]) {
+	return async function wrapper() {
 		let flag = false;
 		let i = 0;
 		while (i < maxFailures) {
 			try {
-				const res = await apiFunction(...args);
+				const res = await apiFunction();
 				return res;
 			} catch (error) {
 				if (flag) return error;
@@ -109,12 +109,12 @@ const resilientAPI = createResilientAPI(unreliableAPI, 3, 5000);
 // 	console.log(`🔴 Failure: ${error}`);
 // }
 
-async function fetchWithAutoRetry(fetcher: () => Promise<any>, maximumRetryCount: number) {
+async function fetchWithAutoRetry(fetcher: (...args: any[]) => Promise<any>, maximumRetryCount: number) {
 	return async function (...args: any[]) {
 		let i = 0;
 		while (i < maximumRetryCount) {
 			try {
-				const response = await fetcher(...args);
+				const response = await fetcher(args);
 				return response;
 			} catch (error) {
 				i++;
@@ -136,7 +136,7 @@ async function test() {
 		const result = await fetchWithAutoRetry(exampleFetcher, 3);
 		console.log(result);
 	} catch (error) {
-		console.error(error.message);
+		console.error(error);
 	}
 }
 
@@ -144,7 +144,7 @@ async function test() {
 
 function PromiseAny(promises: Promise<any>[]) {
 	return new Promise((res, rej) => {
-		let result = [];
+		let result: any = [];
 		for (let i = 0; i < promises.length; i++) {
 			promises[i]
 				.then((data) => {
@@ -176,12 +176,12 @@ function deepCloneBhaskar<T>(data: T, seen = new WeakMap<object, any>()): T {
 		return data;
 	}
 	if (Array.isArray(data)) {
-		const result = [] as T;
+		const result = [] as any;
 		seen.set(data as object, result);
 		data.map((item) => result.push(deepCloneBhaskar(item, seen)));
 		return result;
 	}
-	const result = {} as T;
+	const result = {} as any;
 	seen.set(data as object, result);
 
 	for (const key in data) {
@@ -190,11 +190,11 @@ function deepCloneBhaskar<T>(data: T, seen = new WeakMap<object, any>()): T {
 
 	return result;
 }
-const circularObj = {
+const circularObjV1 = {
 	a: 1
 };
 
-const obj = {
+let objV1 = {
 	a: {
 		b: {
 			c: {
@@ -205,15 +205,16 @@ const obj = {
 	b: 2,
 	c: 3
 };
-circularObj.a = circularObj;
+// @ts-ignore
+circularObjV1.a = circularObjV1;
 
-const obj2 = deepCloneBhaskar(circularObj);
-const obj3 = obj;
+const objV2 = deepCloneBhaskar(circularObjV1);
+const objV3 = objV1;
 
-obj.a.b.c.d = 10;
+objV1.a.b.c.d = 10;
 
-// console.log(circularObj);
-// console.log(obj3.a.b.c.d);
+// console.log(circularObjV1);
+// console.log(objV3.a.b.c.d);
 
 // Example Nested Object
 const data = {
